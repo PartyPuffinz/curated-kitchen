@@ -1,0 +1,102 @@
+.card-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  outline: none;
+}
+
+.card-link:hover {
+  text-decoration: none;
+}
+
+.recipe-card {
+  background-color: white;
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 24px;
+  border: 0.5px solid #eee;
+}
+
+.card-link:hover .recipe-card {
+  border: 1px solid #7b1f4a;
+}
+
+.card-image-wrapper {
+  position: relative;
+}
+
+.card-image-wrapper img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  display: block;
+}
+
+.well-seasoned-badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background-color: #0f6e3a;
+  color: white;
+  font-size: 10px;
+  font-weight: bold;
+  padding: 4px 10px;
+  border-radius: 20px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.card-body {
+  padding: 0 16px 16px 16px;
+}
+
+.recipe-card h3 {
+  font-size: 16px;
+  padding: 12px 0 6px 0;
+  color: #333;
+}
+
+.trusted-chef-tag {
+  display: inline-block;
+  font-size: 10px;
+  background-color: #f5e6ed;
+  color: #7b1f4a;
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-weight: normal;
+  margin-left: 6px;
+  vertical-align: middle;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 0 0 8px 0;
+}
+
+.tag {
+  background-color: #7b1f4a;
+  color: white;
+  font-size: 12px;
+  padding: 4px 10px;
+  border-radius: 20px;
+}
+
+.card-description {
+  font-size: 13px;
+  color: #888;
+  padding: 4px 0 8px 0;
+  line-height: 1.5;
+}
+
+.recipe-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 12px 0 0 0;
+  border-top: 1px solid #eee;
+  font-size: 12px;
+  color: #666;
+  align-items: center;
+}
