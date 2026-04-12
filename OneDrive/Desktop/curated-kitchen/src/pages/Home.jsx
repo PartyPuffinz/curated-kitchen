@@ -1,75 +1,31 @@
+import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import { supabase } from '../supabaseClient'
 import RecipeCard from '../components/RecipeCard'
 
-const recipes = [
-  {
-    id: 1,
-    title: "Chicken & Mushroom Gravy",
-    description: "A delicious mouth-watering mushroom gravy with tender chicken breast.",
-    tags: ["Keto", "Paleo", "Gluten-free"],
-    spoonScore: 4,
-    rating: 5,
-    ratingCount: 24,
-    image: "https://placehold.co/400x200",
-    isWellSeasoned: true,
-    isTrustedChef: true,
-    link: "/recipes/chicken-mushroom-gravy"
-  },
-  {
-    id: 2,
-    title: "Beef Taco Bowl",
-    description: "A hearty taco bowl with seasoned ground beef, rice, and fresh toppings.",
-    tags: ["Gluten-free", "Latin"],
-    spoonScore: 3,
-    rating: 4,
-    ratingCount: 11,
-    image: "https://placehold.co/400x200",
-    isWellSeasoned: false,
-    isTrustedChef: false,
-    link: "/recipes/beef-taco-bowl"
-  },
-  {
-    id: 3,
-    title: "Keto Chocolate Brownies",
-    description: "Rich fudgy brownies made with almond flour and sugar free chocolate.",
-    tags: ["Keto", "Gluten-free"],
-    spoonScore: 5,
-    rating: 5,
-    ratingCount: 38,
-    image: "https://placehold.co/400x200",
-    isWellSeasoned: true,
-    isTrustedChef: false,
-    link: "/recipes/keto-chocolate-brownies"
-  },
-  {
-    id: 4,
-    title: "Halal Lamb Curry",
-    description: "A fragrant slow cooked lamb curry with warming spices and fresh herbs.",
-    tags: ["Halal", "South Asian"],
-    spoonScore: 6,
-    rating: 5,
-    ratingCount: 52,
-    image: "https://placehold.co/400x200",
-    isWellSeasoned: true,
-    isTrustedChef: false,
-    link: "/recipes/halal-lamb-curry"
-  },
-  {
-    id: 5,
-    title: "Paleo Banana Pancakes",
-    description: "Fluffy two ingredient pancakes made with banana and eggs.",
-    tags: ["Paleo", "Gluten-free"],
-    spoonScore: 2,
-    rating: 4,
-    ratingCount: 19,
-    image: "https://placehold.co/400x200",
-    isWellSeasoned: false,
-    isTrustedChef: false,
-    link: "/recipes/paleo-banana-pancakes"
-  }
-]
-
 function Home() {
+  const [recipes, setRecipes] = useState([])
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    async function fetchRecipes() {
+      const { data, error } = await supabase
+        .from('recipes')
+        .select('*')
+        .order('created_at', { ascending: false })
+
+      if (error) {
+        console.error('Error fetching recipes:', error)
+      } else {
+        setRecipes(data)
+      }
+      setLoading(false)
+    }
+    fetchRecipes()
+  }, [])
+
+  if (loading) return <main className="main"><p>Loading...</p></main>
+
   return (
     <main className="main">
 
@@ -77,20 +33,20 @@ function Home() {
         <h2>Recipes for every body, every culture, every ability.</h2>
         <p>Filter by diet, exclude ingredients, and find recipes
         that work for your energy level today.</p>
-        <a href="/browse" className="view-btn">Browse Recipes</a>
+        <Link to="/browse" className="view-btn">Browse Recipes</Link>
       </section>
 
       <section className="category-section">
         <h2>Browse by Category</h2>
         <div className="category-grid">
-          <a href="/browse?diet=Keto" className="category-tile">Keto</a>
-          <a href="/browse?diet=Paleo" className="category-tile">Paleo</a>
-          <a href="/browse?diet=Halal" className="category-tile">Halal</a>
-          <a href="/browse?diet=Latin" className="category-tile">Latin</a>
-          <a href="/browse?diet=Gluten-free"
-          className="category-tile">Gluten-free</a>
-          <a href="/browse?diet=Low-carb"
-          className="category-tile">Low-carb</a>
+          <Link to="/browse?diet=Keto" className="category-tile">Keto</Link>
+          <Link to="/browse?diet=Paleo" className="category-tile">Paleo</Link>
+          <Link to="/browse?diet=Halal" className="category-tile">Halal</Link>
+          <Link to="/browse?diet=Latin" className="category-tile">Latin</Link>
+          <Link to="/browse?diet=Gluten-free"
+          className="category-tile">Gluten-free</Link>
+          <Link to="/browse?diet=Low-carb"
+          className="category-tile">Low-carb</Link>
         </div>
       </section>
 
@@ -98,7 +54,19 @@ function Home() {
         <h2>Recently Added</h2>
         <div className="recipe-row">
           {recipes.slice(0, 4).map(recipe => (
-            <RecipeCard key={recipe.id} {...recipe} />
+            <RecipeCard
+              key={recipe.id}
+              title={recipe.title}
+              description={recipe.description}
+              tags={recipe.tags}
+              spoonScore={recipe.spoon_score}
+              rating={recipe.rating}
+              ratingCount={recipe.rating_count}
+              image={recipe.image_url}
+              isWellSeasoned={recipe.is_well_seasoned}
+              isTrustedChef={recipe.is_trusted_chef}
+              link={`/recipes/${recipe.slug}`}
+            />
           ))}
         </div>
       </section>
@@ -107,7 +75,19 @@ function Home() {
         <h2>Most Popular</h2>
         <div className="recipe-row">
           {recipes.slice(0, 4).map(recipe => (
-            <RecipeCard key={recipe.id} {...recipe} />
+            <RecipeCard
+              key={recipe.id}
+              title={recipe.title}
+              description={recipe.description}
+              tags={recipe.tags}
+              spoonScore={recipe.spoon_score}
+              rating={recipe.rating}
+              ratingCount={recipe.rating_count}
+              image={recipe.image_url}
+              isWellSeasoned={recipe.is_well_seasoned}
+              isTrustedChef={recipe.is_trusted_chef}
+              link={`/recipes/${recipe.slug}`}
+            />
           ))}
         </div>
       </section>
@@ -116,7 +96,19 @@ function Home() {
         <h2>Recently Viewed</h2>
         <div className="recipe-row">
           {recipes.slice(0, 1).map(recipe => (
-            <RecipeCard key={recipe.id} {...recipe} />
+            <RecipeCard
+              key={recipe.id}
+              title={recipe.title}
+              description={recipe.description}
+              tags={recipe.tags}
+              spoonScore={recipe.spoon_score}
+              rating={recipe.rating}
+              ratingCount={recipe.rating_count}
+              image={recipe.image_url}
+              isWellSeasoned={recipe.is_well_seasoned}
+              isTrustedChef={recipe.is_trusted_chef}
+              link={`/recipes/${recipe.slug}`}
+            />
           ))}
         </div>
       </section>

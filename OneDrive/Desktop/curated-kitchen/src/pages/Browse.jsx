@@ -1,76 +1,11 @@
 import { useState, useEffect } from 'react'
+import { supabase } from '../supabaseClient'
 import { useSearchParams } from 'react-router-dom'
 import RecipeCard from '../components/RecipeCard'
 import CustomSelect from '../components/CustomSelect'
 import './Browse.css'
 
-const allRecipes = [
-  {
-    id: 1,
-    title: "Chicken & Mushroom Gravy",
-    description: "A delicious mouth-watering mushroom gravy with tender chicken breast.",
-    tags: ["Keto", "Paleo", "Gluten-free", "Low-carb", "American"],
-    spoonScore: 4,
-    rating: 5,
-    ratingCount: 24,
-    image: "https://placehold.co/400x200",
-    isWellSeasoned: true,
-    isTrustedChef: true,
-    link: "/recipes/chicken-mushroom-gravy"
-  },
-  {
-    id: 2,
-    title: "Beef Taco Bowl",
-    description: "A hearty taco bowl with seasoned ground beef, rice, and fresh toppings.",
-    tags: ["Gluten-free", "Latin"],
-    spoonScore: 3,
-    rating: 4,
-    ratingCount: 11,
-    image: "https://placehold.co/400x200",
-    isWellSeasoned: false,
-    isTrustedChef: false,
-    link: "/recipes/beef-taco-bowl"
-  },
-  {
-    id: 3,
-    title: "Keto Chocolate Brownies",
-    description: "Rich fudgy brownies made with almond flour and sugar free chocolate.",
-    tags: ["Keto", "Gluten-free"],
-    spoonScore: 5,
-    rating: 5,
-    ratingCount: 38,
-    image: "https://placehold.co/400x200",
-    isWellSeasoned: true,
-    isTrustedChef: false,
-    link: "/recipes/keto-chocolate-brownies"
-  },
-  {
-    id: 4,
-    title: "Halal Lamb Curry",
-    description: "A fragrant slow cooked lamb curry with warming spices and fresh herbs.",
-    tags: ["Halal", "South Asian"],
-    spoonScore: 6,
-    rating: 5,
-    ratingCount: 52,
-    image: "https://placehold.co/400x200",
-    isWellSeasoned: true,
-    isTrustedChef: false,
-    link: "/recipes/halal-lamb-curry"
-  },
-  {
-    id: 5,
-    title: "Paleo Banana Pancakes",
-    description: "Fluffy two ingredient pancakes made with banana and eggs.",
-    tags: ["Paleo", "Gluten-free"],
-    spoonScore: 2,
-    rating: 4,
-    ratingCount: 19,
-    image: "https://placehold.co/400x200",
-    isWellSeasoned: false,
-    isTrustedChef: false,
-    link: "/recipes/paleo-banana-pancakes"
-  }
-]
+
 
 const dietOptions = [
   "Keto", "Paleo", "Halal", "Kosher", "Gluten-free", "Vegan",
@@ -104,6 +39,23 @@ const ingredients = [
 
 function Browse() {
   const [searchParams] = useSearchParams()
+  const [allRecipes, setAllRecipes] = useState([])
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    async function fetchRecipes() {
+      const { data, error } = await supabase
+        .from('recipes')
+        .select('*')
+      if (error) {
+        console.error('Error fetching recipes:', error)
+      } else {
+        setAllRecipes(data)
+      }
+      setLoading(false)
+    }
+    fetchRecipes()
+  }, [])
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedDiets, setSelectedDiets] = useState([])
   const [selectedCuisines, setSelectedCuisines] = useState([])
@@ -188,6 +140,9 @@ const [perPage, setPerPage] = useState(25)
     return b.id - a.id
   })
   .slice(0, perPage)
+
+
+  if (loading) return <div className="browse-layout"><p>Loading...</p></div>
 
   return (
     <div className="browse-layout">
@@ -347,9 +302,21 @@ const [perPage, setPerPage] = useState(25)
         </div>
 
         <div className="recipe-row">
-          {filteredRecipes.map(recipe => (
-            <RecipeCard key={recipe.id} {...recipe} />
-          ))}
+         {filteredRecipes.map(recipe => (
+  <RecipeCard
+    key={recipe.id}
+    title={recipe.title}
+    description={recipe.description}
+    tags={recipe.tags}
+    spoonScore={recipe.spoon_score}
+    rating={recipe.rating}
+    ratingCount={recipe.rating_count}
+    image={recipe.image_url}
+    isWellSeasoned={recipe.is_well_seasoned}
+    isTrustedChef={recipe.is_trusted_chef}
+    link={`/recipes/${recipe.slug}`}
+  />
+))}
         </div>
 
       </section>

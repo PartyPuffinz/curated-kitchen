@@ -23,7 +23,14 @@ function RecipeCard({ title, description, tags, spoonScore, rating, ratingCount,
           <p className="card-description">{description}</p>
           <div className="recipe-meta">
             <span className="spoon-score">🥄 {spoonScore}/10 spoons</span>
-            <span className="rating">★ {rating} ({ratingCount} ratings)</span>
+            <span className="rating">
+  {[1,2,3,4,5].map(star => {
+    if (rating >= star) return <span key={star}>★</span>
+    if (rating >= star - 0.5) return <span key={star}>½</span>
+    return <span key={star}>☆</span>
+  })}
+  <span className="rating-count"> ({ratingCount} ratings)</span>
+</span>
           </div>
         </div>
       </div>
