@@ -20,6 +20,10 @@
   margin-left: 16px;
 }
 
+.account-dropdown .dropdown-item {
+  margin-left: 0 !important;
+}
+
 .header nav a:hover {
   opacity: 0.8;
 }
@@ -65,6 +69,12 @@
   text-decoration: none;
   font-family: Georgia, serif;
   background-color: white;
+  text-align: left;
+  width: 100%;
+  box-sizing: border-box;
+  border: none;
+  cursor: pointer;
+  margin: 0;
 }
 
 .dropdown-item:hover {
@@ -74,16 +84,15 @@
 }
 
 .dropdown-divider {
-  height: 1px;
-  background-color: #f0e6eb;
-  margin: 4px 0;
+  display: none;
 }
 
 .dropdown-item.signout {
-  color: #999;
+  color: #333 !important;
+  padding: 11px 16px;
 }
 
 .dropdown-item.signout:hover {
-  color: #7b1f4a;
+  color: #7b1f4a !important;
   background-color: #f5e6ed;
 }
