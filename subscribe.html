@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subscribe — Curated Kitchen</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header>
+      <h1>Curated Kitchen</h1>
+      <nav>
+        <a href="home.html">Home</a>
+        <a href="browse.html">Browse</a>
+        <a href="signin.html">Sign in</a>
+      </nav>
+    </header>
+
+    <main class="auth-layout">
+
+      <div class="auth-card">
+
+        <div class="launch-banner">
+          Launch pricing — lock in $9.99/month for life
+        </div>
+
+        <h2>Subscribe to Curated Kitchen</h2>
+        <p class="auth-subtitle">Unlock the full personalized
+        experience</p>
+
+        <div class="plan-toggle">
+          <button class="plan-btn active" onclick="showPlan('monthly')">
+          Monthly</button>
+          <button class="plan-btn" onclick="showPlan('annual')">
+          Annual — save 33%</button>
+        </div>
+
+        <div id="monthly-plan" class="plan-summary">
+          <p class="plan-price">$9.99 <span>/ month</span></p>
+          <p class="plan-note">Cancel anytime.</p>
+        </div>
+
+        <div id="annual-plan" class="plan-summary" style="display:none;">
+          <p class="plan-price">$80 <span>/ year</span></p>
+          <p class="plan-note">Best value — save 33%,
+          roughly 4 months free.</p>
+        </div>
+
+        <div class="plan-features-mini">
+          <p class="plan-features-title">Everything included:</p>
+          <ul>
+            <li>Ad-free browsing</li>
+            <li>Unlimited saved recipes</li>
+            <li>View 7 last visited recipes</li>
+            <li>Exclude up to 15 ingredients</li>
+            <li>Personalized Spoon-Based Scoring</li>
+            <li>My Equipment profile</li>
+            <li>Filter by equipment profile</li>
+            <li>Search by ingredient or equipment</li>
+            <li>Saved filters per session</li>
+            <li>Filter recipes by holiday or season</li>
+            <li>Grocery shopping list</li>
+            <li>Recipe Card mode — step by step
+            with built in timers</li>
+            <li>Upload up to 4 recipes per day</li>
+            <li>Rate up to 20 recipes per day</li>
+            <li>Comment up to 20 times per day</li>
+            <li>Nutritional auto-calculation
+            per portion</li>
+            <li>Phone number optional</li>
+          </ul>
+          <a href="membership.html" class="forgot-link">
+          View full membership comparison</a>
+        </div>
+
+        <div class="pricing-notice">
+          Pricing is planned to increase approximately one year
+          from launch. Subscribers who sign up during launch
+          pricing will be grandfathered at $9.99/month or
+          $80/year for the lifetime of their account.
+        </div>
+
+        <div class="stripe-placeholder">
+          <p class="stripe-note">Payment processed securely
+          by Stripe. We do not store your card details.</p>
+          <div class="form-group">
+            <label>Cardholder name</label>
+            <input type="text" placeholder="Name on card">
+          </div>
+          <div class="stripe-field">
+            <p class="stripe-coming-soon">Secure card entry
+            will appear here once payment processing
+            is connected.</p>
+          </div>
+          <button class="submit-btn">Subscribe now</button>
+        </div>
+
+        <div class="legal-notice">
+          <p>By subscribing you agree to our
+          <a href="#">Terms of Service</a> and
+          <a href="#">Privacy Policy</a>.</p>
+          <p>Cancelling your subscription returns you to
+          your qualified Basic tier. You will be informed
+          of how many saved recipes you will lose access
+          to before any changes take effect.</p>
+          <p>No refunds are issued under any circumstances.
+          Subscriptions remain active until the end of the
+          current billing period after cancellation.</p>
+          <p>Curated Kitchen reserves the right to update
+          pricing for new subscribers. Existing subscribers
+          on launch pricing are grandfathered for the
+          lifetime of their account.</p>
+        </div>
+
+      </div>
+
+    </main>
+
+    <script>
+      function showPlan(plan) {
+        const monthly = document.getElementById('monthly-plan');
+        const annual = document.getElementById('annual-plan');
+        const btns = document.querySelectorAll('.plan-btn');
+
+        if (plan === 'monthly') {
+          monthly.style.display = 'block';
+          annual.style.display = 'none';
+          btns[0].classList.add('active');
+          btns[1].classList.remove('active');
+        } else {
+          monthly.style.display = 'none';
+          annual.style.display = 'block';
+          btns[0].classList.remove('active');
+          btns[1].classList.add('active');
+        }
+      }
+    </script>
+
+  </body>
+</html>
