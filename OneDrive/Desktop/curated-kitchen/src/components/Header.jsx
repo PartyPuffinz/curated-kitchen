@@ -6,19 +6,38 @@ import './Header.css'
 function Header() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [user, setUser] = useState(null)
+  const [profile, setProfile] = useState(null)
   const menuRef = useRef(null)
   const location = useLocation()
 
   useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setUser(session?.user ?? null)
-    })
+    supabase.auth.getSession().then(async ({ data: { session } }) => {
+  setUser(session?.user ?? null)
+  if (session?.user) {
+    const { data } = await supabase
+      .from('profiles')
+      .select('username, account_type, is_trusted_chef')
+      .eq('id', session.user.id)
+      .single()
+    setProfile(data)
+  }
+})
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      (_event, session) => {
-        setUser(session?.user ?? null)
-      }
-    )
+  async (_event, session) => {
+    setUser(session?.user ?? null)
+    if (session?.user) {
+      const { data } = await supabase
+        .from('profiles')
+        .select('username, account_type, is_trusted_chef')
+        .eq('id', session.user.id)
+        .single()
+      setProfile(data)
+    } else {
+      setProfile(null)
+    }
+  }
+)
 
     return () => subscription.unsubscribe()
   }, [])
@@ -63,18 +82,29 @@ function Header() {
             }}
           >
             <button className="account-btn">
-              My Account ▾
-            </button>
+  {profile?.username || 'My Account'} ▾
+</button>
             {menuOpen && (
               <div className="account-dropdown">
-                <Link to="#" className="dropdown-item">My Profile</Link>
-                <Link to="#" className="dropdown-item">My Saved Recipes</Link>
-                <div className="dropdown-divider" />
-                <button
-                  className="dropdown-item signout"
-                  onClick={handleSignOut}
-                >Sign Out</button>
-              </div>
+  <Link to="#" className="dropdown-item">My Profile</Link>
+  <Link to="#" className="dropdown-item">My Saved Recipes</Link>
+  {(profile?.account_type === 'subscriber' ||
+    profile?.is_trusted_chef) && (
+    <Link to="#" className="dropdown-item">My Equipment</Link>
+  )}
+  {profile?.account_type === 'subscriber' && (
+    <Link to="#" className="dropdown-item">
+    Personalized Spoon-Based Scoring</Link>
+  )}
+  {profile?.is_trusted_chef && (
+    <Link to="#" className="dropdown-item">
+    My Trusted Chef Page</Link>
+  )}
+  <button
+    className="dropdown-item signout"
+    onClick={handleSignOut}
+  >Sign Out</button>
+</div>
             )}
           </div>
         )}

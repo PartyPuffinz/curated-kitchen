@@ -158,23 +158,27 @@ const [showConfirmPassword, setShowConfirmPassword] = useState(false)
         {activeTab === 'signin' && (
           <div className="auth-form">
             <div className="form-group">
-              <label>Email address</label>
-              <input
-                type="email"
-                placeholder="you@example.com"
-                value={email}
-                onChange={e => setEmail(e.target.value)}
-              />
-            </div>
-            <div className="form-group">
-  <label>Password</label>
+  <label htmlFor="signin-email">Email address</label>
+  <input
+    id="signin-email"
+    name="email"
+    type="email"
+    placeholder="you@example.com"
+    value={email}
+    onChange={e => setEmail(e.target.value)}
+  />
+</div>
+<div className="form-group">
+  <label htmlFor="signin-password">Password</label>
   <div className="password-wrapper">
     <input
-      type={showPassword ? 'text' : 'password'}
-      placeholder="Your password"
-      value={password}
-      onChange={e => setPassword(e.target.value)}
-    />
+  id="signin-password"
+  name="password"
+  type={showPassword ? 'text' : 'password'}
+  placeholder="Your password"
+  value={password}
+  onChange={e => setPassword(e.target.value)}
+/>
     <button
       type="button"
       className="eye-btn"
