@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Browse Recipes — Curated Kitchen</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header>
+      <h1>Curated Kitchen</h1>
+      <nav>
+        <a href="home.html">Home</a>
+        <a href="browse.html">Browse</a>
+        <a href="signin.html">Sign in</a>
+      </nav>
+    </header>
+
+    <main class="browse-layout">
+
+      <aside class="filters">
+        <h2>Filters</h2>
+
+        <div class="filter-group">
+          <h3>Diet</h3>
+          <div class="filter-scroll">
+            <label><input type="checkbox"> Keto</label>
+            <label><input type="checkbox"> Paleo</label>
+            <label><input type="checkbox"> Halal</label>
+            <label><input type="checkbox"> Kosher</label>
+            <label><input type="checkbox"> Gluten-free</label>
+            <label><input type="checkbox"> Vegan</label>
+            <label><input type="checkbox"> Vegetarian</label>
+            <label><input type="checkbox"> Low-carb</label>
+            <label><input type="checkbox"> Dairy-free</label>
+            <label><input type="checkbox"> Nut-free</label>
+            <label><input type="checkbox"> Diabetic-friendly</label>
+            <label><input type="checkbox"> AIP</label>
+            <label><input type="checkbox"> Whole30</label>
+            <label><input type="checkbox"> Mediterranean</label>
+            <label><input type="checkbox"> DASH</label>
+            <label><input type="checkbox"> Low-sodium</label>
+          </div>
+        </div>
+
+        <div class="filter-group">
+          <h3>Cuisine</h3>
+          <div class="filter-scroll">
+            <label><input type="checkbox"> American</label>
+            <label><input type="checkbox"> Latin / Mexican</label>
+            <label><input type="checkbox"> Caribbean</label>
+            <label><input type="checkbox"> Italian</label>
+            <label><input type="checkbox"> Mediterranean</label>
+            <label><input type="checkbox"> Middle Eastern</label>
+            <label><input type="checkbox"> Persian</label>
+            <label><input type="checkbox"> Turkish</label>
+            <label><input type="checkbox"> Greek</label>
+            <label><input type="checkbox"> West African</label>
+            <label><input type="checkbox"> East African</label>
+            <label><input type="checkbox"> Ethiopian</label>
+            <label><input type="checkbox"> South Asian / Indian</label>
+            <label><input type="checkbox"> East Asian</label>
+            <label><input type="checkbox"> Chinese</label>
+            <label><input type="checkbox"> Japanese</label>
+            <label><input type="checkbox"> Korean</label>
+            <label><input type="checkbox"> Southeast Asian</label>
+            <label><input type="checkbox"> Filipino</label>
+            <label><input type="checkbox"> Eastern European</label>
+            <label><input type="checkbox"> Southern American</label>
+            <label><input type="checkbox"> Indigenous / Native</label>
+            <label><input type="checkbox"> Pacific Islander</label>
+          </div>
+        </div>
+
+        <div class="filter-group">
+          <h3>Recipe Source</h3>
+          <label><input type="radio" name="source"> All recipes</label>
+<label><input type="radio" name="source"> Trusted Chefs only</label>
+<label><input type="radio" name="source"> Well Seasoned badge only</label>
+<label><input type="radio" name="source"> All user submitted</label>
+        </div>
+
+        <div class="filter-group">
+          <h3>Max Spoon Score</h3>
+          <input type="range" min="1" max="10" value="10"
+          class="effort-slider" id="effortSlider">
+          <p class="slider-label">Up to <span id="effortValue">10</span>
+/10 spoons</p>
+        </div>
+
+        <div class="filter-group">
+          <h3>Minimum Rating</h3>
+          <label><input type="radio" name="rating"> ★★★★★ 5 only</label>
+          <label><input type="radio" name="rating"> ★★★★☆ 4+</label>
+          <label><input type="radio" name="rating"> ★★★☆☆ 3+</label>
+          <label><input type="radio" name="rating"> Any</label>
+        </div>
+
+        <div class="filter-group">
+          <h3>Exclude Ingredients</h3>
+          <div class="exclude-wrapper">
+            <input type="text" class="exclude-input"
+            id="excludeInput" placeholder="Type an ingredient...">
+            <div class="suggestions-box" id="suggestions"></div>
+          </div>
+          <div class="exclude-tags" id="excludeTags"></div>
+        </div>
+
+      </aside>
+
+      <section class="results">
+  <div class="results-header">
+  <h2>All Recipes</h2>
+  <p class="results-count">Showing 5 recipes</p>
+</div>
+
+<div class="sort-bar">
+  <label class="sort-label">Sort by</label>
+  <select class="sort-select" id="sortSelect">
+    <option value="newest">Most recently uploaded</option>
+    <option value="oldest">Oldest first</option>
+    <option value="highest">Highest rated</option>
+    <option value="spoon-asc">Spoon score — low to high</option>
+    <option value="spoon-desc">Spoon score — high to low</option>
+  </select>
+
+  <label class="sort-label">Show</label>
+  <select class="sort-select" id="perPageSelect">
+    <option value="25">25 per page</option>
+    <option value="10">10 per page</option>
+    <option value="50">50 per page</option>
+    <option value="100">100 per page</option>
+  </select>
+</div>
+
+  <div class="search-bar-wrapper">
+    <input type="text" id="recipeSearch"
+    class="recipe-search-bar"
+    placeholder="Search recipes by name...">
+  </div>
+
+ <div class="recipe-row">
+
+  <a href="recipe-chicken-mushroom-gravy.html" class="card-link">
+    <div class="recipe-card">
+      <div class="card-image-wrapper">
+  <img src="https://placehold.co/400x200"
+  alt="Chicken and Mushroom Gravy">
+  <div class="well-seasoned-badge">🏅 Well Seasoned</div>
+</div>
+      <div class="card-body">
+        <h3>Chicken & Mushroom Gravy
+  <span class="trusted-chef-tag">👨‍🍳 Trusted Chef</span>
+</h3>
+        <div class="tags">
+          <span class="tag">Keto</span>
+          <span class="tag">Paleo</span>
+        </div>
+        <p class="card-description">A delicious mouth-watering mushroom
+        gravy with tender chicken breast.</p>
+        <div class="recipe-meta">
+  <span class="spoon-score">🥄 4/10 spoons</span>
+  <span class="rating">★★★★★ 24 ratings</span>
+</div>
+      </div>
+    </div>
+  </a>
+
+  <a href="#" class="card-link">
+    <div class="recipe-card">
+      <img src="https://placehold.co/400x200"
+      alt="Beef Taco Bowl">
+      <div class="card-body">
+        <h3>Beef Taco Bowl</h3>
+        <div class="tags">
+          <span class="tag">Gluten-free</span>
+          <span class="tag">Latin</span>
+        </div>
+        <p class="card-description">A hearty taco bowl with seasoned
+        ground beef, rice, and fresh toppings.</p>
+        <div class="recipe-meta">
+  <span class="spoon-score">🥄 3/10 spoons</span>
+  <span class="rating">★★★★☆ 11 ratings</span>
+</div>
+      </div>
+    </div>
+  </a>
+
+  <a href="#" class="card-link">
+    <div class="recipe-card">
+      <img src="https://placehold.co/400x200"
+      alt="Keto Chocolate Brownies">
+      <div class="card-body">
+        <h3>Keto Chocolate Brownies</h3>
+        <div class="tags">
+          <span class="tag">Keto</span>
+          <span class="tag">Gluten-free</span>
+        </div>
+        <p class="card-description">Rich fudgy brownies made with
+        almond flour and sugar free chocolate.</p>
+       <div class="recipe-meta">
+  <span class="spoon-score">🥄 5/10 spoons</span>
+  <span class="rating">★★★★★ 38 ratings</span>
+</div>
+      </div>
+    </div>
+  </a>
+
+  <a href="#" class="card-link">
+    <div class="recipe-card">
+      <div class="card-image-wrapper">
+  <img src="https://placehold.co/400x200"
+  alt="Halal Lamb Curry">
+  <div class="well-seasoned-badge">🏅 Well Seasoned</div>
+</div>
+      <div class="card-body">
+        <h3>Halal Lamb Curry</h3>
+        <div class="tags">
+          <span class="tag">Halal</span>
+          <span class="tag">South Asian</span>
+        </div>
+        <p class="card-description">A fragrant slow cooked lamb curry
+        with warming spices and fresh herbs.</p>
+       <div class="recipe-meta">
+  <span class="spoon-score">🥄 6/10 spoons</span>
+  <span class="rating">★★★★★ 52 ratings</span>
+</div>
+      </div>
+    </div>
+  </a>
+
+  <a href="#" class="card-link">
+    <div class="recipe-card">
+      <img src="https://placehold.co/400x200"
+      alt="Paleo Banana Pancakes">
+      <div class="card-body">
+        <h3>Paleo Banana Pancakes</h3>
+        <div class="tags">
+          <span class="tag">Paleo</span>
+          <span class="tag">Gluten-free</span>
+        </div>
+        <p class="card-description">Fluffy two ingredient pancakes
+        made with banana and eggs.</p>
+       <div class="recipe-meta">
+  <span class="spoon-score">🥄 2/10 spoons</span>
+  <span class="rating">★★★★☆ 19 ratings</span>
+</div>
+      </div>
+    </div>
+  </a>
+
+</div>
+    </div>
+  </div>
+</a>
+
+      </section>
+
+    </main>
+
+    <script>
+      const ingredients = [
+        "salmon", "sardines", "tuna", "tilapia", "cod", "halibut", "trout",
+        "shrimp", "lobster", "crab", "scallops", "oysters", "clams", "mussels",
+        "anchovies", "catfish", "bass", "swordfish", "mahi mahi", "snapper",
+        "chicken", "chicken breast", "chicken thigh", "chicken wing", "chicken leg",
+        "beef", "ground beef", "beef brisket", "beef ribs", "beef tenderloin",
+        "pork", "pork chop", "pork belly", "pork ribs", "bacon", "ham",
+        "turkey", "lamb", "veal", "venison", "bison", "duck", "goose",
+        "sausage", "pepperoni", "salami", "prosciutto", "pancetta",
+        "egg", "eggs", "egg yolk", "egg white",
+        "milk", "whole milk", "skim milk", "heavy cream", "heavy whipping cream",
+        "butter", "ghee", "cream cheese", "sour cream", "yogurt", "greek yogurt",
+        "cheddar cheese", "mozzarella", "parmesan", "brie", "gouda", "feta",
+        "almond milk", "oat milk", "coconut milk", "soy milk",
+        "flour", "all purpose flour", "almond flour", "coconut flour",
+        "bread crumbs", "panko", "cornstarch", "xanthan gum", "baking powder",
+        "baking soda", "yeast", "sugar", "brown sugar", "powdered sugar",
+        "honey", "maple syrup", "agave", "molasses", "corn syrup",
+        "olive oil", "vegetable oil", "coconut oil", "avocado oil", "sesame oil",
+        "apple cider vinegar", "white vinegar", "balsamic vinegar", "rice vinegar",
+        "soy sauce", "worcestershire sauce", "hot sauce", "fish sauce",
+        "tomato", "tomato sauce", "tomato paste", "crushed tomatoes", "diced tomatoes",
+        "onion", "red onion", "green onion", "shallot", "leek",
+        "garlic", "garlic powder", "garlic clove",
+        "ginger", "ginger powder",
+        "carrot", "celery", "potato", "sweet potato", "yam",
+        "broccoli", "cauliflower", "brussels sprouts", "cabbage", "kale",
+        "spinach", "arugula", "lettuce", "romaine", "mixed greens",
+        "mushroom", "portobello", "shiitake", "cremini", "button mushroom",
+        "bell pepper", "red pepper", "green pepper", "yellow pepper", "jalapeño",
+        "zucchini", "squash", "butternut squash", "acorn squash", "eggplant",
+        "cucumber", "radish", "beet", "turnip", "parsnip",
+        "corn", "peas", "edamame", "green beans", "asparagus", "artichoke",
+        "avocado", "lemon", "lime", "orange", "grapefruit",
+        "apple", "pear", "peach", "plum", "mango", "pineapple", "papaya",
+        "banana", "strawberry", "blueberry", "raspberry", "blackberry",
+        "grape", "cherry", "watermelon", "cantaloupe", "honeydew",
+        "rice", "white rice", "brown rice", "basmati rice", "jasmine rice",
+        "pasta", "spaghetti", "penne", "fettuccine", "linguine", "orzo",
+        "quinoa", "oats", "oatmeal", "barley", "farro", "couscous",
+        "black beans", "kidney beans", "chickpeas", "lentils", "pinto beans",
+        "white beans", "navy beans", "cannellini beans",
+        "almond", "walnut", "pecan", "cashew", "pistachio", "peanut",
+        "peanut butter", "almond butter", "tahini",
+        "chocolate", "dark chocolate", "milk chocolate", "white chocolate",
+        "cocoa powder", "vanilla", "vanilla extract",
+        "salt", "pepper", "black pepper", "white pepper", "cayenne",
+        "paprika", "smoked paprika", "cumin", "coriander", "turmeric",
+        "oregano", "thyme", "rosemary", "basil", "parsley", "cilantro",
+        "dill", "tarragon", "sage", "bay leaf", "chili flakes", "chili powder",
+        "cinnamon", "nutmeg", "cloves", "cardamom", "allspice", "star anise",
+        "chicken broth", "beef broth", "vegetable broth", "bone broth",
+        "wine", "red wine", "white wine", "beer", "sake", "mirin",
+        "tofu", "tempeh", "seitan", "jackfruit",
+        "coconut", "coconut flakes", "coconut cream",
+        "gelatin", "agar agar", "cornmeal", "polenta",
+        "puff pastry", "phyllo dough", "pie crust",
+        "bread", "sourdough", "baguette", "pita", "naan", "tortilla",
+        "mayonnaise", "mustard", "dijon mustard", "ketchup", "relish",
+        "ranch", "caesar dressing", "italian dressing", "vinaigrette",
+        "salsa", "guacamole", "hummus", "tzatziki", "pesto",
+        "kimchi", "sauerkraut", "pickles", "capers", "olives",
+        "smoked salmon", "lox", "prunes", "dates", "raisins",
+        "dried cranberries", "apricots", "pine nuts", "sunflower seeds",
+        "pumpkin seeds", "sesame seeds", "flaxseed", "chia seeds", "hemp seeds",
+        "protein powder", "collagen powder",
+        "stevia", "erythritol", "monk fruit", "splenda"
+      ];
+
+      let excludedIngredients = [];
+      const maxExclusions = 1;
+
+      const input = document.getElementById('excludeInput');
+      const suggestions = document.getElementById('suggestions');
+      const excludeTagsContainer = document.getElementById('excludeTags');
+
+      input.addEventListener('input', function() {
+        const val = this.value.toLowerCase().trim();
+        suggestions.innerHTML = '';
+        if (val.length < 2) return;
+
+        const matches = ingredients.filter(i =>
+          i.toLowerCase().includes(val)
+        ).slice(0, 5);
+
+        matches.forEach(match => {
+          const div = document.createElement('div');
+          div.classList.add('suggestion-item');
+          div.textContent = match;
+          div.addEventListener('click', function() {
+            addExclusion(match);
+            input.value = '';
+            suggestions.innerHTML = '';
+          });
+          suggestions.appendChild(div);
+        });
+      });
+
+      function addExclusion(ingredient) {
+        if (excludedIngredients.length >= maxExclusions) {
+          alert('Sign in to exclude more ingredients.');
+          return;
+        }
+        if (excludedIngredients.includes(ingredient)) return;
+        excludedIngredients.push(ingredient);
+
+        const tag = document.createElement('div');
+        tag.classList.add('exclude-tag');
+        tag.innerHTML = ingredient +
+          ' <span class="remove-tag" onclick="removeExclusion(\'' +
+          ingredient + '\', this)">×</span>';
+        excludeTagsContainer.appendChild(tag);
+      }
+
+      function removeExclusion(ingredient, el) {
+        excludedIngredients = excludedIngredients.filter(i => i !== ingredient);
+        el.parentElement.remove();
+      }
+
+      document.addEventListener('click', function(e) {
+        if (!input.contains(e.target)) {
+          suggestions.innerHTML = '';
+        }
+      });
+
+      document.addEventListener('click', function(e) {
+  if (!input.contains(e.target)) {
+    suggestions.innerHTML = '';
+  }
+});
+
+const recipeSearch = document.getElementById('recipeSearch');
+const recipeCards = document.querySelectorAll('.card-link');
+
+const allCheckboxes = document.querySelectorAll(
+  '.filter-group input[type="checkbox"]'
+);
+
+allCheckboxes.forEach(function(checkbox) {
+  checkbox.addEventListener('change', function() {
+    const checkedLabels = [];
+    allCheckboxes.forEach(function(cb) {
+      if (cb.checked) {
+        checkedLabels.push(cb.parentElement.textContent.trim());
+      }
+    });
+
+    recipeCards.forEach(function(card) {
+      const tagContainer = card.querySelector('.tags');
+      if (!tagContainer) return;
+
+      const existingTags = tagContainer.querySelectorAll('.tag');
+      const existingTagTexts = Array.from(existingTags).map(
+        t => t.textContent.trim().toLowerCase()
+      );
+
+      const extraTag = tagContainer.querySelector('.filter-tag');
+      if (extraTag) extraTag.remove();
+
+      checkedLabels.forEach(function(label) {
+        if (!existingTagTexts.includes(label.toLowerCase())) {
+          const recipeData = card.querySelector('h3')
+            .textContent.toLowerCase();
+          if (recipeData.includes('chicken') && 
+            label.toLowerCase() === 'low-carb' ||
+            label.toLowerCase() === 'gluten-free') {
+            const newTag = document.createElement('span');
+            newTag.classList.add('tag', 'filter-tag');
+            newTag.textContent = label;
+            tagContainer.appendChild(newTag);
+          }
+        }
+      });
+    });
+  });
+});
+
+recipeSearch.addEventListener('input', function() {
+  const searchVal = this.value.toLowerCase().trim();
+
+  recipeCards.forEach(function(card) {
+    const title = card.querySelector('h3');
+    if (!title) return;
+    const titleText = title.textContent.toLowerCase();
+
+    if (titleText.includes(searchVal)) {
+      card.style.display = 'block';
+    } else {
+      card.style.display = 'none';
+    }
+  });
+
+  const visible = document.querySelectorAll(
+    '.card-link[style="display: block;"]'
+  ).length;
+  const total = recipeCards.length;
+  const count = searchVal === '' ? total : visible;
+  document.querySelector('.results-count').textContent =
+    'Showing ' + count + ' recipe' + (count !== 1 ? 's' : '');
+});
+    </script>
+
+  </body>
+</html>
