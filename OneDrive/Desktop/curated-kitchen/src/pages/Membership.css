@@ -1,0 +1,205 @@
+.membership-layout {
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 0 16px;
+}
+
+.membership-title {
+  font-size: 28px;
+  color: #333;
+  text-align: center;
+  margin-bottom: 8px;
+}
+
+.membership-subtitle {
+  font-size: 15px;
+  color: #888;
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.membership-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 20px;
+  align-items: start;
+}
+
+.membership-card {
+  background-color: white;
+  border-radius: 12px;
+  padding: 24px;
+  border: 1px solid #eee;
+}
+
+.featured-card {
+  border: 2px solid #7b1f4a;
+}
+
+.membership-badge-featured {
+  background-color: #7b1f4a;
+  color: white;
+  font-size: 11px;
+  padding: 3px 10px;
+  border-radius: 20px;
+  display: inline-block;
+  margin-bottom: 8px;
+}
+
+.membership-badge {
+  font-size: 13px;
+  font-weight: bold;
+  margin-bottom: 12px;
+  padding: 4px 0;
+}
+
+.guest { color: #888; }
+.basic { color: #555; }
+.verified { color: #2e7d9a; }
+.subscriber { color: #7b1f4a; }
+.trusted { color: #854F0B; }
+
+.membership-price {
+  font-size: 22px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 4px;
+}
+
+.membership-price span {
+  font-size: 14px;
+  font-weight: normal;
+  color: #888;
+}
+
+.membership-desc {
+  font-size: 12px;
+  color: #aaa;
+  margin-bottom: 16px;
+}
+
+.membership-features {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 20px;
+}
+
+.membership-features li {
+  font-size: 13px;
+  color: #444;
+  padding: 5px 0;
+  border-bottom: 1px solid #f5f5f5;
+  line-height: 1.5;
+}
+
+.membership-features li::before {
+  content: "✓ ";
+  color: #7b1f4a;
+  font-weight: bold;
+}
+
+.feature-no {
+  color: #bbb !important;
+}
+
+.feature-no::before {
+  content: "✗ " !important;
+  color: #ddd !important;
+}
+
+.membership-btn {
+  display: block;
+  text-align: center;
+  padding: 10px;
+  border-radius: 8px;
+  font-size: 13px;
+  text-decoration: none;
+  cursor: pointer;
+  font-family: Georgia, serif;
+}
+
+.outline-btn {
+  border: 1px solid #7b1f4a;
+  color: #7b1f4a;
+  background: none;
+}
+
+.outline-btn:hover {
+  background-color: #fdf6f9;
+  font-weight: bold;
+}
+
+.filled-btn {
+  background-color: #7b1f4a;
+  color: white !important;
+  border: none;
+}
+
+.filled-btn:hover {
+  background-color: #9e2860;
+}
+
+.probation-note {
+  font-size: 12px;
+  font-weight: bold;
+  color: #7b1f4a;
+  margin: 10px 0 6px 0;
+  padding-top: 8px;
+  border-top: 1px solid #f0e6eb;
+}
+
+.after-note {
+  margin-top: 14px;
+}
+
+.cancel-note {
+  font-size: 11px;
+  color: #aaa;
+  line-height: 1.6;
+  margin-bottom: 14px;
+  padding: 10px;
+  border: 1px dashed #eee;
+  border-radius: 8px;
+  font-style: italic;
+}
+
+.launch-price-note {
+  font-size: 11px;
+  color: #0f6e3a;
+  background-color: #E6F5EE;
+  padding: 6px 10px;
+  border-radius: 6px;
+  margin-bottom: 12px;
+  line-height: 1.5;
+}
+
+.downgrade-notice {
+  background-color: white;
+  border-radius: 12px;
+  padding: 24px;
+  margin-top: 32px;
+  border: 1px solid #f0e6eb;
+}
+
+.downgrade-notice h3 {
+  font-size: 16px;
+  color: #7b1f4a;
+  margin-bottom: 10px;
+}
+
+.downgrade-notice p {
+  font-size: 13px;
+  color: #666;
+  line-height: 1.7;
+  margin-bottom: 12px;
+}
+
+.forgot-link {
+  font-size: 13px;
+  color: #7b1f4a;
+  text-decoration: none;
+}
+
+.forgot-link:hover {
+  text-decoration: underline;
+}

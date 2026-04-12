@@ -23,3 +23,67 @@
 .header nav a:hover {
   opacity: 0.8;
 }
+
+.account-menu {
+  position: relative;
+  display: inline-block;
+}
+
+.account-btn {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+  font-family: Georgia, serif;
+  padding: 0;
+  margin-left: 16px;
+}
+
+.account-btn:hover {
+  opacity: 0.8;
+}
+
+.account-dropdown {
+  position: absolute;
+  top: calc(100% + 12px);
+  right: 0;
+  background: white;
+  border-radius: 10px;
+  border: 1px solid #f0e6eb;
+  min-width: 220px;
+  z-index: 300;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.dropdown-item {
+  display: block;
+  padding: 11px 16px;
+  font-size: 13px;
+  color: #333 !important;
+  text-decoration: none;
+  font-family: Georgia, serif;
+  background-color: white;
+}
+
+.dropdown-item:hover {
+  background-color: #f5e6ed;
+  color: #7b1f4a !important;
+  font-weight: bold;
+}
+
+.dropdown-divider {
+  height: 1px;
+  background-color: #f0e6eb;
+  margin: 4px 0;
+}
+
+.dropdown-item.signout {
+  color: #999;
+}
+
+.dropdown-item.signout:hover {
+  color: #7b1f4a;
+  background-color: #f5e6ed;
+}
