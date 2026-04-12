@@ -43,19 +43,23 @@ function Browse() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    async function fetchRecipes() {
-      const { data, error } = await supabase
-        .from('recipes')
-        .select('*')
-      if (error) {
-        console.error('Error fetching recipes:', error)
-      } else {
-        setAllRecipes(data)
-      }
-      setLoading(false)
+  fetch('https://orfsgfdvojihddeworuz.supabase.co/rest/v1/recipes?select=*', {
+    headers: {
+      'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9yZnNnZmR2b2ppaGRkZXdvcnV6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYwMTMxODYsImV4cCI6MjA5MTU4OTE4Nn0.lQuHjktlnZmv6BGZrZxQ4gQl_WBQysF2vEjZv38Z-0A',
+      'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9yZnNnZmR2b2ppaGRkZXdvcnV6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYwMTMxODYsImV4cCI6MjA5MTU4OTE4Nn0.lQuHjktlnZmv6BGZrZxQ4gQl_WBQysF2vEjZv38Z-0A'
     }
-    fetchRecipes()
-  }, [])
+  })
+  .then(res => res.json())
+  .then(data => {
+    setAllRecipes(Array.isArray(data) ? data : [])
+    setLoading(false)
+  })
+  .catch(err => {
+    console.error('Fetch error:', err)
+    setLoading(false)
+  })
+}, [])
+
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedDiets, setSelectedDiets] = useState([])
   const [selectedCuisines, setSelectedCuisines] = useState([])

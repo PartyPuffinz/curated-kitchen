@@ -9,22 +9,22 @@ function RecipePage() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    async function fetchRecipe() {
-      const { data, error } = await supabase
-        .from('recipes')
-        .select('*')
-        .eq('slug', slug)
-        .single()
-
-      if (error) {
-        console.error('Error fetching recipe:', error)
-      } else {
-        setRecipe(data)
-      }
-      setLoading(false)
+  fetch(`https://orfsgfdvojihddeworuz.supabase.co/rest/v1/recipes?slug=eq.${slug}&select=*`, {
+    headers: {
+      'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9yZnNnZmR2b2ppaGRkZXdvcnV6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYwMTMxODYsImV4cCI6MjA5MTU4OTE4Nn0.lQuHjktlnZmv6BGZrZxQ4gQl_WBQysF2vEjZv38Z-0A',
+      'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9yZnNnZmR2b2ppaGRkZXdvcnV6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYwMTMxODYsImV4cCI6MjA5MTU4OTE4Nn0.lQuHjktlnZmv6BGZrZxQ4gQl_WBQysF2vEjZv38Z-0A'
     }
-    fetchRecipe()
-  }, [slug])
+  })
+  .then(res => res.json())
+  .then(data => {
+    setRecipe(Array.isArray(data) && data.length > 0 ? data[0] : null)
+    setLoading(false)
+  })
+  .catch(err => {
+    console.error('Fetch error:', err)
+    setLoading(false)
+  })
+}, [slug])
 
   if (loading) return <main className="main"><p>Loading...</p></main>
 
@@ -45,15 +45,15 @@ function RecipePage() {
         <img src={recipe.image_url} alt={recipe.title} />
 
         <div className="recipe-page-body">
-          <h2>
-            {recipe.title}
-            {recipe.is_trusted_chef && (
-              <span className="trusted-chef-tag">👨‍🍳 Trusted Chef</span>
-            )}
-            {recipe.is_well_seasoned && (
-              <span className="well-seasoned-tag">🏅 Well Seasoned</span>
-            )}
-          </h2>
+          <h2>{recipe.title}</h2>
+<div className="recipe-badges">
+  {recipe.is_trusted_chef && (
+    <span className="trusted-chef-tag">👨‍🍳 Trusted Chef</span>
+  )}
+  {recipe.is_well_seasoned && (
+    <span className="well-seasoned-tag">🏅 Well Seasoned</span>
+  )}
+</div>
 
           <div className="tags">
             {recipe.tags.map((tag, i) => (

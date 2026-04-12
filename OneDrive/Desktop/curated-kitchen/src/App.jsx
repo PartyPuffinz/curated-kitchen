@@ -7,6 +7,7 @@ import RecipePage from './pages/RecipePage'
 import SignIn from './pages/SignIn'
 import Membership from './pages/Membership'
 import Subscribe from './pages/Subscribe'
+import UploadRecipe from './pages/UploadRecipe'
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path="/signin" element={<SignIn />} />
         <Route path="/membership" element={<Membership />} />
         <Route path="/subscribe" element={<Subscribe />} />
+        <Route path="/upload" element={<UploadRecipe />} />
       </Routes>
     </div>
   )

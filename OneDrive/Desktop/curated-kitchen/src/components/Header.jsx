@@ -88,6 +88,7 @@ function Header() {
               <div className="account-dropdown">
   <Link to="#" className="dropdown-item">My Profile</Link>
   <Link to="#" className="dropdown-item">My Saved Recipes</Link>
+  <Link to="/upload" className="dropdown-item">Upload a Recipe</Link>
   {(profile?.account_type === 'subscriber' ||
     profile?.is_trusted_chef) && (
     <Link to="#" className="dropdown-item">My Equipment</Link>
