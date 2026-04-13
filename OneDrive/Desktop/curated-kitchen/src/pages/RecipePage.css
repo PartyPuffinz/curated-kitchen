@@ -161,6 +161,7 @@
 .not-found {
   text-align: center;
   padding: 80px 16px;
+  font-family: 'IBM Plex Serif', Georgia, serif;
 }
 
 .not-found h2 {

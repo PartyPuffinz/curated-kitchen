@@ -36,7 +36,7 @@ function RecipePage() {
         <p>This recipe doesn't exist or may have been removed.</p>
         <div className="not-found-btns">
           <Link to="/browse" className="view-btn">Return to Browse</Link>
-          <Link to="/" className="back-btn">Return to Home</Link>
+          <Link to="/" className="view-btn">Return to Home</Link>
         </div>
       </div>
     </main>

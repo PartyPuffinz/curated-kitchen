@@ -68,9 +68,9 @@ function formatFractions(text) {
 function formatIngredient(ingredient) {
   const withFractions = formatFractions(ingredient)
   const spacedUnits = withFractions.replace(
-    /(\d)(oz|lb|lbs|tsp|tbsp|cup|cups|g|kg|ml|qt|pt|gal|fl)\b/gi,
-    (match, num, unit) => num + ' ' + unit.toLowerCase()
-  )
+  /(\d)(oz|lb|lbs|tsp|tbsp|cup|cups|g|kg|ml|qt|pt|gal|fl|c)\b/gi,
+  (match, num, unit) => num + ' ' + unit.toLowerCase()
+)
 
   const prepWords = ['shredded', 'diced', 'minced', 'chopped',
     'sliced', 'grated', 'crushed', 'mashed', 'peeled',
@@ -170,15 +170,12 @@ function injectPrepNotes(step, ingredientList) {
   return result
 }
 
-function formatStep(step, ingredientList) {
+function formatStep(step) {
   const trimmed = step.trim()
   if (!trimmed) return trimmed
   const withFractions = formatFractions(trimmed)
   const withTemps = formatTemperature(withFractions)
-  const withPrep = ingredientList
-    ? injectPrepNotes(withTemps, ingredientList)
-    : withTemps
-  return withPrep.charAt(0).toUpperCase() + withPrep.slice(1)
+  return withTemps.charAt(0).toUpperCase() + withTemps.slice(1)
 }
 
 function UploadRecipe() {
@@ -389,8 +386,8 @@ function UploadRecipe() {
           portions: parseInt(portions),
           ingredients: formattedIngredients,
           steps: steps
-            .filter(s => s.trim())
-            .map(s => formatStep(s, formattedIngredients)),
+  .filter(s => s.trim())
+  .map(s => formatStep(s)),
           image_url: imageUrl,
           slug,
           uploaded_by: user.id,
