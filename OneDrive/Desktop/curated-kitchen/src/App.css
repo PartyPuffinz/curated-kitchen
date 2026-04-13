@@ -10,7 +10,11 @@ body {
   color: #333;
 }
 
-input, textarea, select, button {
+input, textarea, select, button,
+.step-number, .ingredient-hint,
+.divided-tag, .recipe-meta,
+.ingredient-grid, .steps-list,
+.rating, .rating-count {
   font-family: 'IBM Plex Serif', Georgia, serif !important;
 }
 
