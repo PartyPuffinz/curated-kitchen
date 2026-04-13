@@ -17,7 +17,7 @@
 
 .recipe-page-body h2 {
   font-size: 31px;
-  margin-bottom: 12px;
+  margin-bottom: 0;
   color: #333;
 }
 
@@ -252,4 +252,226 @@
   color: #888;
   margin-bottom: 12px;
   font-style: italic;
+}
+
+.recipe-title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 12px;
+  gap: 12px;
+}
+
+.recipe-title-row h2 {
+  font-size: 31px;
+  color: #333;
+  margin: 0;
+  flex: 1;
+}
+
+.comment-section {
+  margin-top: 40px;
+  padding-top: 24px;
+  border-top: 2px solid #f0e6eb;
+}
+
+.comment-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.comment-section-header h3 {
+  font-size: 20px;
+  color: #333;
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+
+.three-dot-menu {
+  position: relative;
+}
+
+.three-dot-btn {
+  background: none;
+  border: 1px solid #f0e6eb;
+  border-radius: 6px;
+  color: #c4a0b3;
+  font-size: 18px;
+  cursor: pointer;
+  padding: 2px 10px;
+  line-height: 1;
+  transition: all 0.15s;
+}
+
+.three-dot-btn:hover {
+  border-color: #c0392b;
+  color: #c0392b;
+}
+
+.three-dot-dropdown {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 4px);
+  background: white;
+  border: 1px solid #f0e6eb;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  z-index: 100;
+  min-width: 180px;
+  overflow: hidden;
+}
+
+.three-dot-item {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 10px 14px;
+  font-size: 13px;
+  color: #444;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: Georgia, serif;
+}
+
+.three-dot-item:hover {
+  background-color: #fdf6f9;
+  color: #7b1f4a;
+}
+
+.report-box {
+  background-color: #fdf6f9;
+  border: 1px solid #f0e6eb;
+  border-radius: 10px;
+  padding: 16px;
+  margin-bottom: 20px;
+}
+
+.report-title {
+  font-size: 14px;
+  font-weight: bold;
+  color: #7b1f4a;
+  margin-bottom: 12px;
+}
+
+.report-options {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.report-option {
+  font-size: 13px;
+  color: #444;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.report-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.comment-form {
+  margin-bottom: 28px;
+}
+
+.comment-form h4 {
+  font-size: 16px;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.comment-input {
+  width: 100%;
+  padding: 12px;
+  font-size: 14px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-family: Georgia, serif;
+  color: #333;
+  resize: vertical;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+}
+
+.comment-input:focus {
+  outline: none;
+  border-color: #7b1f4a;
+}
+
+.no-comments {
+  font-size: 14px;
+  color: #aaa;
+  font-style: italic;
+  padding: 16px 0;
+}
+
+.comment-item {
+  background-color: white;
+  border: 1px solid #f0e6eb;
+  border-radius: 10px;
+  padding: 14px 16px;
+  margin-bottom: 12px;
+}
+
+.comment-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.comment-username {
+  font-size: 14px;
+  font-weight: bold;
+  color: #7b1f4a;
+}
+
+.comment-date {
+  font-size: 12px;
+  color: #aaa;
+  flex: 1;
+}
+
+.comment-content {
+  font-size: 14px;
+  color: #444;
+  line-height: 1.6;
+}
+
+.comment-pagination {
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.page-btn {
+  background: none;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 6px 12px;
+  font-size: 13px;
+  color: #888;
+  cursor: pointer;
+  font-family: Georgia, serif;
+}
+
+.page-btn:hover {
+  border-color: #7b1f4a;
+  color: #7b1f4a;
+}
+
+.page-btn.active {
+  background-color: #7b1f4a;
+  border-color: #7b1f4a;
+  color: white;
 }
