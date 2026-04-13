@@ -181,3 +181,12 @@
   justify-content: center;
   align-items: center;
 }
+
+.ingredient-grid li,
+.steps-list li,
+.recipe-page-meta,
+.rating,
+.spoon-score,
+.recipe-badges {
+  font-family: 'IBM Plex Serif', Georgia, serif !important;
+}
