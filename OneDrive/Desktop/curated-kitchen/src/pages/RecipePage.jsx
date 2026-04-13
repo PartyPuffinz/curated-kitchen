@@ -29,13 +29,19 @@ function RecipePage() {
   if (loading) return <main className="main"><p>Loading...</p></main>
 
   if (!recipe) {
-    return (
-      <main className="main">
-        <h2>Recipe not found</h2>
-        <Link to="/browse" className="back-btn">← Back to Browse</Link>
-      </main>
-    )
-  }
+  return (
+    <main className="main">
+      <div className="not-found">
+        <h2>404 — Recipe Not Found</h2>
+        <p>This recipe doesn't exist or may have been removed.</p>
+        <div className="not-found-btns">
+          <Link to="/browse" className="view-btn">Return to Browse</Link>
+          <Link to="/" className="back-btn">Return to Home</Link>
+        </div>
+      </div>
+    </main>
+  )
+}
 
   return (
     <main className="main">
