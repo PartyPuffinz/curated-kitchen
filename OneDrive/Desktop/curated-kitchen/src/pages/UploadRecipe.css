@@ -33,13 +33,6 @@
   border-radius: 6px !important;
 }
 
-.upload-card .form-group label {
-  display: block;
-  font-size: 14px;
-  font-weight: bold;
-  color: #333;
-  margin-bottom: 8px;
-}
 
 .upload-card .form-group input[type="text"],
 .upload-card .form-group textarea {
@@ -140,17 +133,21 @@
 .list-input-row input,
 .list-input-row textarea {
   flex: 1;
+  min-width: 0;
 }
 
 .step-number {
-  font-size: 12px;
-  font-weight: bold;
-  color: #7b1f4a;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  padding-top: 12px;
-  white-space: nowrap;
-  min-width: 50px;
+  font-size: 12px !important;
+  font-weight: bold !important;
+  color: #7b1f4a !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+  padding-top: 12px !important;
+  padding-right: 16px !important;
+  white-space: nowrap !important;
+  min-width: 90px !important;
+  flex-shrink: 0 !important;
+  display: block !important;
 }
 
 .remove-btn {
@@ -365,4 +362,42 @@
   padding: 4px 10px;
   border-radius: 20px;
   border: 1px solid #f5c6c6;
+}
+
+.almost-there-banner {
+  background-color: #7b1f4a;
+  color: white;
+  text-align: center;
+  padding: 16px 24px;
+  border-radius: 10px;
+  font-size: 15px;
+  margin-bottom: 24px;
+  line-height: 1.5;
+}
+
+.spoon-divider {
+  border-top: 2px solid #f0e6eb;
+  padding-top: 24px;
+  margin-top: 24px;
+  margin-bottom: 16px;
+}
+
+.spoon-divider h3 {
+  font-size: 18px;
+  color: #7b1f4a;
+  margin-bottom: 6px;
+}
+
+.publish-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.allergen-confirm h3,
+.allergen-warning h3,
+.allergen-suggested h3 {
+  font-size: 15px;
+  margin-bottom: 8px;
 }
