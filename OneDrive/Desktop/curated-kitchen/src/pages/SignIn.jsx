@@ -147,7 +147,7 @@ const [showConfirmPassword, setShowConfirmPassword] = useState(false)
         <div className="auth-tabs">
           <button
             className={`auth-tab ${activeTab === 'signin' ? 'active' : ''}`}
-            onClick={() => { setActiveTab('signin'); setStep(1); setError(''); setMessage('') }}
+            onClick={() => { setActiveTab('signin'); setStep(1); setError(''); setMessage(''); setPassword(''); setConfirmPassword(''); setEmail(''); setUsername('') }}
           >Sign in</button>
           <button
             className={`auth-tab ${activeTab === 'register' ? 'active' : ''}`}
@@ -320,8 +320,8 @@ const [showConfirmPassword, setShowConfirmPassword] = useState(false)
             </div>
             <button className="submit-btn"
             onClick={() => setStep(3)}>Send verification code</button>
-            <button className="skip-btn">
-            Skip for now — basic access only</button>
+            <button className="skip-btn" onClick={() => window.location.href = '/'}>
+Skip for now — basic access only</button>
           </div>
         )}
 

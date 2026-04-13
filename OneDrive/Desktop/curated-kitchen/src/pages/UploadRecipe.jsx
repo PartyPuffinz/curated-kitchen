@@ -32,6 +32,102 @@ const alwaysLower = ['diced', 'minced', 'chopped', 'sliced',
   'reserve', 'reserved', 'juice', 'when', 'draining', 'topping',
   'remainder', 'will', 'be', 'tops', 'off', 'halved']
 
+  const allergenRules = {
+  'Dairy-free': {
+    contains: ['milk', 'butter', 'cream', 'cheese', 'yogurt', 'whey',
+      'casein', 'lactose', 'ghee', 'kefir', 'mozzarella', 'cheddar',
+      'parmesan', 'brie', 'gouda', 'ricotta', 'sour cream',
+      'heavy cream', 'half and half', 'ice cream'],
+    tagIfContains: false
+  },
+  'Gluten-free': {
+    contains: ['flour', 'wheat', 'barley', 'rye', 'bread', 'pasta',
+      'noodle', 'soy sauce', 'breadcrumb', 'malt', 'semolina',
+      'spelt', 'farro', 'couscous', 'cracker', 'cereal'],
+    tagIfContains: false
+  },
+  'Nut-free': {
+    contains: ['almond', 'walnut', 'pecan', 'cashew', 'pistachio',
+      'hazelnut', 'macadamia', 'brazil nut', 'pine nut', 'chestnut',
+      'almond flour', 'almond milk', 'peanut', 'peanut butter'],
+    tagIfContains: false
+  },
+  'Egg-free': {
+    contains: ['egg', 'eggs', 'mayonnaise', 'meringue', 'albumin'],
+    tagIfContains: false
+  },
+  'Soy-free': {
+    contains: ['soy', 'soya', 'tofu', 'edamame', 'miso', 'tempeh',
+      'soy sauce', 'tamari', 'soybean'],
+    tagIfContains: false
+  },
+  'Shellfish-free': {
+    contains: ['shrimp', 'crab', 'lobster', 'crayfish', 'prawn',
+      'scallop', 'clam', 'oyster', 'mussel', 'squid', 'octopus'],
+    tagIfContains: false
+  },
+  'Fish-free': {
+    contains: ['salmon', 'tuna', 'cod', 'tilapia', 'halibut', 'anchovy',
+      'sardine', 'mahi', 'bass', 'trout', 'catfish', 'fish sauce',
+      'worcestershire'],
+    tagIfContains: false
+  },
+  'Sesame-free': {
+    contains: ['sesame', 'tahini', 'sesame oil', 'sesame seed'],
+    tagIfContains: false
+  },
+  'Peanut-free': {
+    contains: ['peanut', 'peanut butter', 'groundnut'],
+    tagIfContains: false
+  },
+  'Chocolate-free': {
+    contains: ['chocolate', 'cocoa', 'cacao', 'nutella'],
+    tagIfContains: false
+  },
+  'Vegan': {
+    contains: ['milk', 'butter', 'cream', 'cheese', 'yogurt', 'egg',
+      'eggs', 'meat', 'chicken', 'beef', 'pork', 'fish', 'shrimp',
+      'bacon', 'gelatin', 'honey', 'whey', 'casein'],
+    tagIfContains: false
+  },
+  'Vegetarian': {
+    contains: ['chicken', 'beef', 'pork', 'lamb', 'turkey', 'bacon',
+      'ham', 'sausage', 'anchovies', 'gelatin', 'lard',
+      'fish sauce', 'shrimp', 'salmon', 'tuna', 'cod'],
+    tagIfContains: false
+  },
+  'Keto': {
+    contains: ['sugar', 'flour', 'bread', 'pasta', 'rice', 'potato',
+      'corn', 'oat', 'honey', 'maple syrup', 'banana', 'apple',
+      'orange juice', 'cornstarch'],
+    tagIfContains: false
+  },
+  'Low-carb': {
+    contains: ['sugar', 'flour', 'bread', 'pasta', 'rice', 'potato',
+      'corn', 'oat', 'honey', 'maple syrup'],
+    tagIfContains: false
+  }
+}
+
+function detectAllergenTags(ingredientList) {
+  const ingredientText = ingredientList.join(' ').toLowerCase()
+  const suggestedTags = []
+  const warningTags = []
+
+  for (const [tag, rule] of Object.entries(allergenRules)) {
+    const found = rule.contains.some(item =>
+      ingredientText.includes(item.toLowerCase())
+    )
+    if (found) {
+      warningTags.push(tag)
+    } else {
+      suggestedTags.push(tag)
+    }
+  }
+
+  return { suggestedTags, warningTags }
+}
+
 const tempContextWords = ['preheat', 'bake', 'roast', 'broil',
   'fry', 'heat', 'warm', 'temperature', 'temp', 'degrees',
   'airfryer', 'air', 'fryer', 'oven', 'grill']
@@ -185,6 +281,8 @@ function UploadRecipe() {
   const [selectedTags, setSelectedTags] = useState([])
   const [cuisine, setCuisine] = useState('')
   const [showTagPicker, setShowTagPicker] = useState(false)
+  const [suggestedTags, setSuggestedTags] = useState([])
+const [warningTags, setWarningTags] = useState([])
   const [portions, setPortions] = useState('')
   const [ingredients, setIngredients] = useState([''])
   const [steps, setSteps] = useState([''])
@@ -223,10 +321,17 @@ function UploadRecipe() {
   }
 
   function handleIngredientBlur(index) {
-    if (!ingredients[index].trim() && ingredients.length > 1) {
-      setIngredients(ingredients.filter((_, i) => i !== index))
-    }
+  if (!ingredients[index].trim() && ingredients.length > 1) {
+    setIngredients(ingredients.filter((_, i) => i !== index))
   }
+  const filled = ingredients.filter(i => i.trim())
+  if (filled.length > 0) {
+    const { suggestedTags: suggested, warningTags: warnings } =
+      detectAllergenTags(filled)
+    setSuggestedTags(suggested.filter(t => !selectedTags.includes(t)))
+    setWarningTags(warnings)
+  }
+}
 
   function handleIngredientKeyDown(index, e) {
     if (e.key === 'Enter') {
@@ -457,7 +562,37 @@ function UploadRecipe() {
         <div className="form-group">
           <label>Dietary tags</label>
           <p className="field-hint">Select all that apply.
-          Click elsewhere when done.</p>
+Click elsewhere when done.</p>
+{warningTags.length > 0 && (
+  <div className="allergen-warning">
+    <p><strong>⚠️ Contains:</strong> Based on your ingredients
+    this recipe may not be suitable for:</p>
+    <div className="tag-grid" style={{marginTop: '6px'}}>
+      {warningTags.map(tag => (
+        <span key={tag} className="allergen-tag">{tag}</span>
+      ))}
+    </div>
+  </div>
+)}
+{suggestedTags.length > 0 && (
+  <div className="allergen-suggested">
+    <p><strong>✓ May apply:</strong> Based on your ingredients
+    these tags might fit your recipe:</p>
+    <div className="tag-grid" style={{marginTop: '6px'}}>
+      {suggestedTags.map(tag => (
+        <button
+          key={tag}
+          type="button"
+          className="tag-toggle"
+          onClick={() => {
+            handleTagToggle(tag)
+            setSuggestedTags(prev => prev.filter(t => t !== tag))
+          }}
+        >{tag} +</button>
+      ))}
+    </div>
+  </div>
+)}
           <div className="tag-grid">
             {selectedTags.length > 0 && selectedTags.map(tag => (
               <span key={tag} className="tag-selected">

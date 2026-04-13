@@ -56,10 +56,11 @@ function Header() {
     return () => document.removeEventListener('mousedown', handleClickOutside)
   }, [])
 
-  async function handleSignOut() {
-    await supabase.auth.signOut()
-    window.location.href = '/'
-  }
+  function handleSignOut() {
+  localStorage.removeItem('curated-kitchen-auth')
+  localStorage.removeItem('sb-orfsgfdvojihddeworuz-auth-token')
+  window.location.href = '/'
+}
 
   return (
     <header className="header">
