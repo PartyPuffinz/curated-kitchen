@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { supabase } from '../supabaseClient'
 import { useSearchParams } from 'react-router-dom'
 import RecipeCard from '../components/RecipeCard'
@@ -27,6 +27,7 @@ const ingredients = [
   "salmon", "tuna", "shrimp", "chicken", "chicken breast",
   "beef", "ground beef", "pork", "bacon", "turkey", "lamb",
   "egg", "eggs", "milk", "butter", "cream cheese", "parmesan",
+  "mozzarella", "cheddar", "cheese", "feta", "gouda", "brie",
   "flour", "almond flour", "sugar", "honey", "olive oil",
   "garlic", "onion", "tomato", "mushroom", "bell pepper",
   "potato", "carrot", "broccoli", "spinach", "avocado",
@@ -34,8 +35,17 @@ const ingredients = [
   "black beans", "chickpeas", "chocolate", "vanilla",
   "cinnamon", "cumin", "paprika", "oregano", "thyme",
   "chicken broth", "beef broth", "coconut milk", "soy sauce",
-  "xanthan gum", "heavy whipping cream", "parsley"
+  "xanthan gum", "heavy whipping cream", "parsley",
+  "jalapeño", "cilantro", "corn", "zucchini", "kale",
+  "sweet potato", "peanut butter", "almond", "walnut",
+  "shrimp", "cod", "tilapia", "anchovy", "crab", "lobster",
+  "sour cream", "greek yogurt", "cottage cheese", "ricotta",
+  "tomato sauce", "tomato paste", "diced tomatoes",
+  "italian seasoning", "red pepper flakes", "bay leaf",
+  "white wine", "red wine", "apple cider vinegar",
+  "worcestershire sauce", "hot sauce", "mustard", "mayonnaise"
 ]
+
 
 function Browse() {
   const [searchParams] = useSearchParams()
@@ -72,6 +82,8 @@ function Browse() {
 
   const [sortBy, setSortBy] = useState('newest')
 const [perPage, setPerPage] = useState(25)
+const suggestionsRef = useRef(null)
+const [suggestionsLoading, setSuggestionsLoading] = useState(false)
 
   useEffect(() => {
     const diet = searchParams.get('diet')
@@ -82,6 +94,16 @@ const [perPage, setPerPage] = useState(25)
       if (matched) setSelectedDiets([matched])
     }
   }, [searchParams])
+
+  useEffect(() => {
+  function handleClickOutside(e) {
+    if (suggestionsRef.current && !suggestionsRef.current.contains(e.target)) {
+      setSuggestions([])
+    }
+  }
+  document.addEventListener('mousedown', handleClickOutside)
+  return () => document.removeEventListener('mousedown', handleClickOutside)
+}, [])
 
   const handleDietChange = (diet) => {
     setSelectedDiets(prev =>
@@ -95,32 +117,57 @@ const [perPage, setPerPage] = useState(25)
     )
   }
 
-  const handleExcludeInput = (val) => {
-    setExcludeInput(val)
-    if (val.length < 2) { setSuggestions([]); return }
-    const matches = ingredients.filter(i =>
-      i.toLowerCase().includes(val.toLowerCase())
-    ).slice(0, 5)
-    setSuggestions(matches)
-  }
+  const excludeInputRef = useRef('')
+  const debounceRef = useRef(null)
+
+const handleExcludeInput = (val) => {
+  setExcludeInput(val)
+  excludeInputRef.current = val
+  if (val.length < 2) { setSuggestions([]); return }
+  
+  setSuggestionsLoading(true)
+  clearTimeout(debounceRef.current)
+  debounceRef.current = setTimeout(async () => {
+    try {
+      const res = await fetch(
+        `https://api.nal.usda.gov/fdc/v1/foods/search?query=${encodeURIComponent(val)}&api_key=${import.meta.env.VITE_USDA_API_KEY}&pageSize=5&dataType=Foundation,SR%20Legacy`
+      )
+      const data = await res.json()
+      if (excludeInputRef.current !== val) return
+      const names = (data.foods || [])
+        .map(f => {
+          const parts = f.description.toLowerCase().split(',')
+          return parts.reverse().map(p => p.trim()).join(' ')
+        })
+        .filter((v, i, a) => a.indexOf(v) === i)
+        .slice(0, 8)
+      setSuggestions(names)
+      setSuggestionsLoading(false)
+    } catch (err) {
+      setSuggestions([])
+    }
+  }, 150)
+}
 
   const addExclusion = (ingredient) => {
-    if (excludedIngredients.length >= 1) {
-      alert('Sign in to exclude more ingredients.')
-      return
-    }
-    if (!excludedIngredients.includes(ingredient)) {
-      setExcludedIngredients(prev => [...prev, ingredient])
-    }
-    setExcludeInput('')
-    setSuggestions([])
+  if (excludedIngredients.length >= 1) {
+    alert('Sign in to exclude more ingredients.')
+    return
   }
+  if (!excludedIngredients.includes(ingredient)) {
+    setExcludedIngredients(prev => [...prev, ingredient])
+  }
+  setExcludeInput('')
+  setSuggestions([])
+  setSuggestionsLoading(false)
+  excludeInputRef.current = ''
+}
 
   const removeExclusion = (ingredient) => {
     setExcludedIngredients(prev => prev.filter(i => i !== ingredient))
   }
 
-  const filteredRecipes = allRecipes
+ const filteredRecipes = allRecipes
   .filter(recipe => {
     if (searchTerm && !recipe.title.toLowerCase().includes(
       searchTerm.toLowerCase())) return false
@@ -128,20 +175,29 @@ const [perPage, setPerPage] = useState(25)
       d => recipe.tags.includes(d))) return false
     if (selectedCuisines.length > 0 && !selectedCuisines.some(
       c => recipe.tags.includes(c))) return false
-    if (recipe.spoonScore > maxSpoon) return false
+    if (recipe.spoon_score > maxSpoon) return false
     if (recipe.rating < minRating) return false
-    if (excludedIngredients.some(
-      i => recipe.title.toLowerCase().includes(i))) return false
-    if (source === 'wellSeasoned' && !recipe.isWellSeasoned) return false
-    if (source === 'trustedChef' && !recipe.isTrustedChef) return false
+    if (excludedIngredients.some(excluded => {
+  const ingredientList = (recipe.ingredients || []).join(' ').toLowerCase()
+  const normalizedExcluded = excluded
+    .toLowerCase()
+    .split(',')
+    .map(s => s.trim())
+    .join(' ')
+  const keyWords = normalizedExcluded.split(' ').filter(w => w.length > 2)
+  return keyWords.every(word => ingredientList.includes(word))
+})) return false
+
+    if (source === 'wellSeasoned' && !recipe.is_well_seasoned) return false
+    if (source === 'trustedChef' && !recipe.is_trusted_chef) return false
     return true
   })
   .sort((a, b) => {
     if (sortBy === 'highest') return b.rating - a.rating
-    if (sortBy === 'spoon-asc') return a.spoonScore - b.spoonScore
-    if (sortBy === 'spoon-desc') return b.spoonScore - a.spoonScore
-    if (sortBy === 'oldest') return a.id - b.id
-    return b.id - a.id
+    if (sortBy === 'spoon-asc') return a.spoon_score - b.spoon_score
+    if (sortBy === 'spoon-desc') return b.spoon_score - a.spoon_score
+    if (sortBy === 'oldest') return new Date(a.created_at) - new Date(b.created_at)
+    return new Date(b.created_at) - new Date(a.created_at)
   })
   .slice(0, perPage)
 
@@ -233,14 +289,25 @@ const [perPage, setPerPage] = useState(25)
           <h3>Exclude Ingredients</h3>
           <div className="exclude-wrapper">
             <input
-              type="text"
-              className="exclude-input"
-              placeholder="Type an ingredient..."
-              value={excludeInput}
-              onChange={e => handleExcludeInput(e.target.value)}
-            />
-            {suggestions.length > 0 && (
-              <div className="suggestions-box">
+  type="text"
+  className="exclude-input"
+  placeholder="Type an ingredient, press Enter..."
+  value={excludeInput}
+  onChange={e => handleExcludeInput(e.target.value)}
+  onKeyDown={e => {
+  if (e.key === 'Enter' && excludeInput.trim().length > 1) {
+    addExclusion(excludeInput.trim())
+    e.target.blur()
+  }
+}}
+onBlur={() => setTimeout(() => setSuggestions([]), 150)}
+/>
+            {(suggestions.length > 0 || suggestionsLoading) && (
+  <div className="suggestions-box" ref={suggestionsRef}>
+    {suggestionsLoading && (
+      <div className="suggestion-item" style={{color: '#aaa', fontStyle: 'italic'}}>
+        Searching...</div>
+    )}
                 {suggestions.map(s => (
                   <div key={s} className="suggestion-item"
                   onClick={() => addExclusion(s)}>{s}</div>

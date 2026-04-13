@@ -191,3 +191,65 @@
 .recipe-badges {
   font-family: 'IBM Plex Serif', Georgia, serif !important;
 }
+
+.nutrition-facts {
+  margin-top: 24px;
+  padding: 16px;
+  background-color: #fdf6f9;
+  border-radius: 10px;
+  border: 1px solid #f0e6eb;
+}
+
+.nutrition-facts h4 {
+  font-size: 14px;
+  font-weight: bold;
+  color: #7b1f4a;
+  margin-bottom: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.nutrition-loading {
+  font-size: 13px;
+  color: #aaa;
+  font-style: italic;
+}
+
+.nutrition-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.nutrition-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 70px;
+  background: white;
+  border-radius: 8px;
+  padding: 10px 12px;
+  border: 1px solid #f0e6eb;
+}
+
+.nutrition-value {
+  font-size: 18px;
+  font-weight: bold;
+  color: #7b1f4a;
+  font-family: 'IBM Plex Serif', Georgia, serif;
+}
+
+.nutrition-label {
+  font-size: 11px;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-top: 2px;
+}
+
+.nutrition-serves {
+  font-size: 12px;
+  color: #888;
+  margin-bottom: 12px;
+  font-style: italic;
+}

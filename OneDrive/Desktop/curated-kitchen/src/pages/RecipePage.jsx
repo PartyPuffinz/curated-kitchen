@@ -2,11 +2,14 @@ import { useState, useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { supabase } from '../supabaseClient'
 import './RecipePage.css'
+import { calculateRecipeNutrition } from '../utils/nutrition'
 
 function RecipePage() {
   const { slug } = useParams()
   const [recipe, setRecipe] = useState(null)
   const [loading, setLoading] = useState(true)
+  const [nutrition, setNutrition] = useState(null)
+const [nutritionLoading, setNutritionLoading] = useState(false)
 
   useEffect(() => {
   fetch(`https://orfsgfdvojihddeworuz.supabase.co/rest/v1/recipes?slug=eq.${slug}&select=*`, {
@@ -25,6 +28,17 @@ function RecipePage() {
     setLoading(false)
   })
 }, [slug])
+
+useEffect(() => {
+  if (!recipe) return
+  setNutritionLoading(true)
+  calculateRecipeNutrition(recipe.ingredients, recipe.portions)
+    .then(data => {
+      setNutrition(data)
+      setNutritionLoading(false)
+    })
+    .catch(() => setNutritionLoading(false))
+}, [recipe])
 
   if (loading) return <main className="main"><p>Loading...</p></main>
 
@@ -88,9 +102,44 @@ function RecipePage() {
               </span>
               <span>{recipe.rating_count} ratings</span>
             </div>
-            <div className="meta-row nutrition-placeholder">
-              <span>Serves {recipe.portions} — Nutrition facts coming soon</span>
-            </div>
+            <div className="nutrition-facts">
+  <h4>Nutrition per serving</h4>
+  <p className="nutrition-serves">Recipe serves {recipe.portions}</p>
+  {nutritionLoading && <p className="nutrition-loading">
+    Calculating nutrition facts...</p>}
+  {nutrition && !nutritionLoading && (
+    <div className="nutrition-grid">
+      <div className="nutrition-item">
+        <span className="nutrition-value">{nutrition.calories}</span>
+        <span className="nutrition-label">Calories</span>
+      </div>
+      <div className="nutrition-item">
+        <span className="nutrition-value">{nutrition.protein}g</span>
+        <span className="nutrition-label">Protein</span>
+      </div>
+      <div className="nutrition-item">
+        <span className="nutrition-value">{nutrition.fat}g</span>
+        <span className="nutrition-label">Fat</span>
+      </div>
+      <div className="nutrition-item">
+        <span className="nutrition-value">{nutrition.carbs}g</span>
+        <span className="nutrition-label">Carbs</span>
+      </div>
+      <div className="nutrition-item">
+        <span className="nutrition-value">{nutrition.fiber}g</span>
+        <span className="nutrition-label">Fiber</span>
+      </div>
+      <div className="nutrition-item">
+        <span className="nutrition-value">{nutrition.sugar}g</span>
+        <span className="nutrition-label">Sugar</span>
+      </div>
+      <div className="nutrition-item">
+        <span className="nutrition-value">{nutrition.sodium}mg</span>
+        <span className="nutrition-label">Sodium</span>
+      </div>
+    </div>
+  )}
+</div>
           </div>
 
           <h3>Ingredients</h3>
