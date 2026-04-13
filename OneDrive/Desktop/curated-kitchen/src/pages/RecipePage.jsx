@@ -23,6 +23,10 @@ function RecipePage() {
   const [showReportRecipe, setShowReportRecipe] = useState(false)
   const [reportRecipeReason, setReportRecipeReason] = useState('')
   const [commentPage, setCommentPage] = useState(1)
+  const [userRating, setUserRating] = useState(0)
+const [hoverRating, setHoverRating] = useState(0)
+const [hasRated, setHasRated] = useState(false)
+const [ratingSubmitting, setRatingSubmitting] = useState(false)
   const reportMenuRef = useRef(null)
 
   useEffect(() => {
@@ -58,6 +62,30 @@ function RecipePage() {
   }, [recipe])
 
   useEffect(() => {
+  if (!recipe) return
+  let user = null
+  const keys = Object.keys(localStorage)
+  for (const key of keys) {
+    if (key.includes('auth')) {
+      try {
+        const parsed = JSON.parse(localStorage.getItem(key))
+        if (parsed?.user) { user = parsed.user; break }
+      } catch(e) {}
+    }
+  }
+  if (!user) return
+  fetch(`${DB}/rest/v1/ratings?recipe_id=eq.${recipe.id}&user_id=eq.${user.id}&select=rating`, { headers: HEADERS })
+    .then(res => res.json())
+    .then(data => {
+      if (Array.isArray(data) && data.length > 0) {
+        setUserRating(data[0].rating)
+        setHasRated(true)
+      }
+    })
+    .catch(() => {})
+}, [recipe])
+
+  useEffect(() => {
   function handleClickOutside(e) {
     if (reportMenuRef.current && !reportMenuRef.current.contains(e.target)) {
       setShowReportRecipe(false)
@@ -86,6 +114,57 @@ useEffect(() => {
     return () => clearTimeout(t)
   }
 }, [reportingId])
+
+
+async function handleRating(stars) {
+  if (hasRated) return
+  let user = null
+  const keys = Object.keys(localStorage)
+  for (const key of keys) {
+    if (key.includes('auth')) {
+      try {
+        const parsed = JSON.parse(localStorage.getItem(key))
+        if (parsed?.user) { user = parsed.user; break }
+      } catch(e) {}
+    }
+  }
+  if (!user) {
+    alert('You must be signed in to rate recipes.')
+    return
+  }
+  setRatingSubmitting(true)
+  const res = await fetch(`${DB}/rest/v1/ratings`, {
+    method: 'POST',
+    headers: { ...HEADERS, 'Content-Type': 'application/json', 'Prefer': 'return=minimal' },
+    body: JSON.stringify({
+      recipe_id: recipe.id,
+      user_id: user.id,
+      rating: stars
+    })
+  })
+  
+  if (res.ok) {
+    setUserRating(stars)
+    setHasRated(true)
+    const newCount = recipe.rating_count + 1
+    const newRating = ((recipe.rating * recipe.rating_count) + stars) / newCount
+    const roundedRating = Math.round(newRating * 10) / 10
+    await fetch(`${DB}/rest/v1/recipes?id=eq.${recipe.id}`, {
+      method: 'PATCH',
+      headers: { ...HEADERS, 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        rating: roundedRating,
+        rating_count: newCount
+      })
+    })
+    setRecipe(prev => ({
+      ...prev,
+      rating: roundedRating,
+      rating_count: newCount
+    }))
+  }
+  setRatingSubmitting(false)
+}
 
   async function handleSubmitComment() {
     setCommentError('')
@@ -302,15 +381,40 @@ useEffect(() => {
               </span>
             </div>
             <div className="meta-row">
-              <span>
-                {[1,2,3,4,5].map(star => {
-                  if (recipe.rating >= star) return <span key={star}>★</span>
-                  if (recipe.rating >= star - 0.5) return <span key={star}>½</span>
-                  return <span key={star}>☆</span>
-                })}
-              </span>
-              <span>{recipe.rating_count} ratings</span>
-            </div>
+  <span>
+    {[1,2,3,4,5].map(star => {
+      if (recipe.rating >= star) return <span key={star}>★</span>
+      if (recipe.rating >= star - 0.5) return <span key={star}>½</span>
+      return <span key={star}>☆</span>
+    })}
+  </span>
+  <span>{recipe.rating_count} ratings</span>
+</div>
+
+<div className="rating-widget">
+  {hasRated ? (
+    <p className="rating-thanks">
+      You rated this recipe {userRating} star{userRating !== 1 ? 's' : ''}!
+    </p>
+  ) : (
+    <>
+      <p className="rating-prompt">Rate this recipe:</p>
+      <div className="rating-stars">
+        {[1,2,3,4,5].map(star => (
+          <button
+            key={star}
+            className={`rating-star ${(hoverRating || userRating) >= star ? 'active' : ''}`}
+            onMouseEnter={() => setHoverRating(star)}
+            onMouseLeave={() => setHoverRating(0)}
+            onClick={() => handleRating(star)}
+            disabled={ratingSubmitting}
+          >★</button>
+        ))}
+      </div>
+    </>
+  )}
+</div>
+
             <div className="nutrition-facts">
               <h4>Nutrition per serving</h4>
               <p className="nutrition-serves">Recipe serves {recipe.portions}</p>

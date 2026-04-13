@@ -475,3 +475,45 @@
   border-color: #7b1f4a;
   color: white;
 }
+
+.rating-widget {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid #f0e6eb;
+}
+
+.rating-prompt {
+  font-size: 13px;
+  color: #888;
+  margin-bottom: 6px;
+}
+
+.rating-stars {
+  display: flex;
+  gap: 4px;
+}
+
+.rating-star {
+  background: none;
+  border: none;
+  font-size: 28px;
+  color: #ddd;
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+  transition: color 0.1s;
+}
+
+.rating-star.active {
+  color: #7b1f4a;
+}
+
+.rating-star:hover {
+  color: #7b1f4a;
+}
+
+.rating-thanks {
+  font-size: 13px;
+  color: #0f6e3a;
+  font-style: italic;
+}
