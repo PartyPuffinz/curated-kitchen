@@ -1,30 +1,29 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { supabase } from '../supabaseClient'
 import RecipeCard from '../components/RecipeCard'
+
+const ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9yZnNnZmR2b2ppaGRkZXdvcnV6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYwMTMxODYsImV4cCI6MjA5MTU4OTE4Nn0.lQuHjktlnZmv6BGZrZxQ4gQl_WBQysF2vEjZv38Z-0A'
+const DB = 'https://orfsgfdvojihddeworuz.supabase.co'
+const HEADERS = { 'apikey': ANON_KEY, 'Authorization': `Bearer ${ANON_KEY}` }
 
 function Home() {
   const [recipes, setRecipes] = useState([])
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-  fetch('https://orfsgfdvojihddeworuz.supabase.co/rest/v1/recipes?select=*&order=created_at.desc', {
-    headers: {
-      'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9yZnNnZmR2b2ppaGRkZXdvcnV6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYwMTMxODYsImV4cCI6MjA5MTU4OTE4Nn0.lQuHjktlnZmv6BGZrZxQ4gQl_WBQysF2vEjZv38Z-0A',
-      'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9yZnNnZmR2b2ppaGRkZXdvcnV6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYwMTMxODYsImV4cCI6MjA5MTU4OTE4Nn0.lQuHjktlnZmv6BGZrZxQ4gQl_WBQysF2vEjZv38Z-0A'
-    }
-  })
-  .then(res => res.json())
-  .then(data => {
-    console.log('Recipes:', data)
-    setRecipes(Array.isArray(data) ? data : [])
-    setLoading(false)
-  })
-  .catch(err => {
-    console.error('Fetch error:', err)
-    setLoading(false)
-  })
-}, [])
+    fetch(`${DB}/rest/v1/recipes?select=*&order=created_at.desc`, {
+      headers: HEADERS
+    })
+    .then(res => res.json())
+    .then(data => {
+      setRecipes(Array.isArray(data) ? data : [])
+      setLoading(false)
+    })
+    .catch(err => {
+      console.error('Fetch error:', err)
+      setLoading(false)
+    })
+  }, [])
 
   if (loading) return <main className="main"><p>Loading...</p></main>
 

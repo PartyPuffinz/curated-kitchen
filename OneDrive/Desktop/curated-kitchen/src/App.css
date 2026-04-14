@@ -132,3 +132,25 @@ input, textarea, select, button,
   color: #333;
   margin-bottom: 16px;
 }
+
+.hero-welcome {
+  font-size: 16px;
+  color: white;
+  margin-bottom: 12px;
+  opacity: 0.95;
+}
+
+.hero-tc-badge {
+  display: inline-flex;
+  align-items: center;
+  background-color: #f5e6ed;
+  color: #7b1f4a;
+  font-size: 11px;
+  font-weight: bold;
+  padding: 3px 10px;
+  border-radius: 20px;
+  margin-left: 8px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  vertical-align: middle;
+}

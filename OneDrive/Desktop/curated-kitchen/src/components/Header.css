@@ -96,3 +96,42 @@
   color: #7b1f4a !important;
   background-color: #f5e6ed;
 }
+
+.trusted-chef-banner {
+  background-color: #0f6e3a;
+  color: white;
+  text-align: center;
+  padding: 10px 40px;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  position: relative;
+}
+
+.trusted-chef-banner-link {
+  color: white;
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.trusted-chef-banner-close {
+  position: absolute;
+  right: 16px;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+}
+
+.tc-warning-banner {
+  background-color: #854F0B;
+}
+
+.tc-lost-banner {
+  background-color: #c0392b;
+}
