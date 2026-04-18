@@ -84,6 +84,31 @@
   cursor: pointer;
 }
 
+.nowz-diet-scroll {
+  max-height: 196px;
+  overflow-y: scroll;
+  border: 1px solid #f0e6eb;
+  border-radius: 8px;
+  padding: 6px 10px;
+  scrollbar-width: thin;
+  scrollbar-color: #f5e6ed #fff;
+}
+
+.nowz-diet-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+
+.nowz-diet-scroll::-webkit-scrollbar-track {
+  background: white;
+  border-radius: 10px;
+}
+
+.nowz-diet-scroll::-webkit-scrollbar-thumb {
+  background-color: #f5e6ed;
+  border-radius: 10px;
+  border: 1px solid #e8c5d5;
+}
+
 .nowz-search {
   width: 100%;
   padding: 8px 10px;
@@ -222,4 +247,77 @@
   font-size: 11px;
   color: #aaa;
   margin-left: 4px;
+}
+
+.nowz-card-image {
+  width: 100%;
+  height: 160px;
+  object-fit: contain;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  background-color: #fdf6f9;
+}
+
+.nowz-rating-section {
+  margin-top: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.nowz-rate-row {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.nowz-rate-label {
+  font-size: 12px;
+  color: #888;
+  margin-right: 4px;
+}
+
+.nowz-star {
+  background: none;
+  border: none;
+  font-size: 22px;
+  color: #ddd;
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+  transition: color 0.1s;
+}
+
+.nowz-star.active {
+  color: #7b1f4a;
+}
+
+.nowz-rated-thanks {
+  font-size: 12px;
+  color: #0f6e3a;
+  font-style: italic;
+  margin: 0;
+}
+
+.nowz-rating-count {
+  font-size: 12px;
+  color: #aaa;
+}
+
+.nowz-reset-btn {
+  width: 100%;
+  padding: 10px;
+  background: none;
+  border: 1px solid #f0e6eb;
+  border-radius: 8px;
+  color: #7b1f4a;
+  font-size: 13px;
+  cursor: pointer;
+  font-family: Georgia, serif;
+  margin-top: 8px;
+}
+
+.nowz-reset-btn:hover {
+  background-color: #fdf6f9;
+  border-color: #7b1f4a;
 }

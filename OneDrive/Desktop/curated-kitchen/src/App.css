@@ -156,3 +156,92 @@ input, textarea, select, button,
   vertical-align: middle;
 }
 
+.hero-btns {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+
+.section-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.section-see-all {
+  font-size: 14px;
+  color: #7b1f4a;
+  text-decoration: none;
+}
+
+.section-see-all:hover {
+  text-decoration: underline;
+}
+
+.nowz-sub-heading {
+  font-size: 17px;
+  color: #555;
+  margin-bottom: 12px;
+  margin-top: 20px;
+}
+
+.nowz-home-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.nowz-home-card {
+  text-decoration: none;
+  background-color: white;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid #f0e6eb;
+  transition: border-color 0.15s;
+  display: block;
+}
+
+.nowz-home-card:hover {
+  border-color: #7b1f4a;
+}
+
+.nowz-home-img {
+  width: 100%;
+  height: 120px;
+  object-fit: contain;
+  background-color: #fdf6f9;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+.nowz-home-info {
+  padding: 10px 12px;
+}
+
+.nowz-home-name {
+  font-size: 14px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 2px;
+}
+
+.nowz-home-brand {
+  font-size: 12px;
+  color: #aaa;
+  margin-bottom: 4px;
+}
+
+.nowz-home-cal {
+  font-size: 12px;
+  color: #7b1f4a;
+  font-family: 'IBM Plex Serif', Georgia, serif;
+  margin-bottom: 4px;
+}
+
+.nowz-home-stars {
+  font-size: 14px;
+}

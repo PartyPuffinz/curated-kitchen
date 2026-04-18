@@ -607,7 +607,7 @@ for (const key of keys) {
       return
     }
 
-    navigate(`/recipes/${slug}`)
+    navigate(`/upload-success?slug=${slug}`)
   }
 
   if (page === 2) {

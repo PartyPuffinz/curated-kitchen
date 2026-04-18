@@ -326,6 +326,21 @@ onBlur={() => setTimeout(() => setSuggestions([]), 150)}
           </div>
         </div>
 
+
+<button
+  className="nowz-reset-btn"
+  onClick={() => {
+    setSelectedDiets([])
+    setSelectedCuisines([])
+    setSelectedSource('all')
+    setSelectedSpoon('')
+    setSelectedRating('')
+    setExcludedIngredients([])
+    setSearchQuery('')
+  }}
+>Reset Filters</button>
+
+
       </aside>
 
       <section className="results">

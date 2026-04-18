@@ -1,0 +1,56 @@
+.upload-success-layout {
+  max-width: 640px;
+  margin: 60px auto;
+  padding: 0 16px;
+}
+
+.upload-success-card {
+  background-color: white;
+  border-radius: 16px;
+  padding: 48px 40px;
+  text-align: center;
+  border: 1px solid #f0e6eb;
+}
+
+.upload-success-icon {
+  font-size: 56px;
+  margin-bottom: 20px;
+}
+
+.upload-success-card h2 {
+  font-size: 26px;
+  color: #7b1f4a;
+  margin-bottom: 12px;
+  line-height: 1.4;
+}
+
+.upload-success-sub {
+  font-size: 15px;
+  color: #888;
+  margin-bottom: 28px;
+  line-height: 1.7;
+}
+
+.upload-success-remix {
+  background-color: #fdf6f9;
+  border: 1px solid #f0e6eb;
+  border-radius: 10px;
+  padding: 16px 20px;
+  margin-bottom: 28px;
+  font-size: 14px;
+  color: #555;
+  line-height: 1.7;
+}
+
+.remix-link {
+  color: #7b1f4a;
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.upload-success-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}

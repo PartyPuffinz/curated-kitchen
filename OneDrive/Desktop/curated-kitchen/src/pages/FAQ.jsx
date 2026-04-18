@@ -50,11 +50,11 @@ Some components are answered by the recipe uploader. Others — like ingredient 
         q: 'Can I get a personalized Spoon Score?',
         a: `Yes — subscribers can set up a personal equipment and ability profile. Your personalized score adjusts based on the tools you have available (which can reduce effort) and your personal energy profile. For example, if you have a food processor, chopping-heavy recipes will score lower for you than for someone doing it by hand.
 
-Personalized scoring is available to subscribers. You can learn more on our membership page.`
+Personalized scoring is only available to subscribers. You can learn more on our membership page.`
       },
       {
         q: 'Are the Spoon Scores accurate?',
-        a: `We do our best to make them as accurate as possible, but they are estimates based on the information provided by the recipe uploader and our automated detection. Individual experiences will vary — what feels like a 3-spoon recipe to one person may feel like a 5-spoon recipe to another, depending on their specific condition, tools, and environment.
+        a: `We do our best to make them as accurate as possible, but they are estimates based on the information provided by the recipe uploader and our automated detection. Individual experiences will vary; what feels like a 3-spoon recipe to one person may feel like a 5-spoon recipe to another, depending on their specific condition, tools, and environment.
 
 We encourage you to use the scores as a guide rather than a guarantee, and to filter based on what works for you personally.`
       },
@@ -112,6 +112,39 @@ Please remember that our detection is not perfect and always double-check ingred
         a: `Yes. Subscribers who sign up during the launch pricing period are grandfathered at that rate for the lifetime of their account, regardless of any future price increases.`
       }
     ]
+  },
+  {
+    section: 'Nowz Foodz',
+    items: [
+      {
+        q: 'What is Nowz Foodz?',
+        a: `Nowz Foodz are foods that require minimal effort — if any — to prepare. This includes premade snacks, boxed or frozen meals, canned goods, energy drinks, protein bars, and other ready-to-eat items. They're designed for the days when cooking simply isn't an option.
+
+Unlike our recipes, Nowz Foodz items do not have a Spoon Score. By definition, they require little to no preparation effort. The goal is simply to help you find packaged foods that fit your dietary needs when your spoons are gone.`
+      },
+      {
+        q: 'How is nutritional information sourced for Nowz Foodz?',
+        a: `Nutritional information for Nowz Foodz items is sourced from Open Food Facts, a free and open database of food products from around the world. This information is provided as a guide only.
+
+Always check the actual product label before purchasing or consuming, especially if you have food allergies or specific dietary requirements. Nutritional content can vary between product batches, regional variations, and formula changes by manufacturers.`
+      },
+      {
+        q: 'Can I suggest a product for Nowz Foodz?',
+        a: `Yes! If you know of a packaged food or drink that fits a specific diet and you think the community would benefit from having it listed, you can submit it via the barcode lookup tool on the Nowz Foodz page. All submissions are reviewed before being published.`
+      },
+      {
+        q: 'Are allergen filters on Nowz Foodz reliable?',
+        a: `Our allergen filters are based on data from Open Food Facts and are provided as a guide only. They may not capture every allergen, especially for products with complex ingredient lists or "may contain" warnings.
+
+If you have a food allergy or intolerance, always read the full ingredient list on the actual product packaging before consuming. Do not rely solely on our filters for allergy management.`
+      },
+      {
+        q: 'Does Curated Kitchen sell these products or have brand partnerships?',
+        a: `No. Curated Kitchen is not affiliated with, endorsed by, or partnered with any of the brands listed in Nowz Foodz. We do not sell products. We are a review and discovery platform only — similar to how a restaurant review site lists restaurants without selling food.
+
+We do not make medical or health claims about any listed products. Dietary tags such as "Keto" or "Gluten-free" are based on nutritional data and ingredient lists, not medical certification. Always consult a healthcare professional for medical dietary advice.`
+      }
+    ]
   }
 ]
 
@@ -142,7 +175,7 @@ function FAQ() {
         ))}
 
         <div className="faq-footer">
-          <p>Still have questions? <Link to="#">Contact us</Link> or
+          <p>Still have questions? <Link to="/feedback">Contact us</Link> or
           visit our <Link to="/membership">membership page</Link> for
           more information.</p>
         </div>

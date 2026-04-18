@@ -21,6 +21,8 @@ import Feedback from './pages/Feedback'
 import TermsOfService from './pages/TermsOfService'
 import PrivacyPolicy from './pages/PrivacyPolicy'
 import AbusePolicy from './pages/AbusePolicy'
+import AdminNowzUpload from './pages/AdminNowzUpload'
+import UploadSuccess from './pages/UploadSuccess'
 import UploadRecipe from './pages/UploadRecipe'
 
 function App() {
@@ -47,6 +49,8 @@ function App() {
         <Route path="/terms" element={<TermsOfService />} />
         <Route path="/privacy" element={<PrivacyPolicy />} />
         <Route path="/abuse-policy" element={<AbusePolicy />} />
+        <Route path="/admin/nowz" element={<AdminNowzUpload />} />
+        <Route path="/upload-success" element={<UploadSuccess />} />
         <Route path="/upload" element={<UploadRecipe />} />
       </Routes>
       <Footer />
