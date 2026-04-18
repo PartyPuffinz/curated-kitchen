@@ -1,0 +1,57 @@
+.tc-profile-header {
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+  background-color: white;
+  border-radius: 12px;
+  padding: 32px;
+  margin-bottom: 32px;
+}
+
+.tc-profile-avatar img,
+.tc-avatar-placeholder {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.tc-avatar-placeholder {
+  background-color: #f5e6ed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 48px;
+}
+
+.tc-profile-info {
+  flex: 1;
+}
+
+.tc-profile-name-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+}
+
+.tc-profile-name-row h2 {
+  font-size: 28px;
+  color: #333;
+  margin: 0;
+}
+
+.tc-profile-bio {
+  font-size: 15px;
+  color: #555;
+  line-height: 1.7;
+  margin-bottom: 10px;
+  max-width: 600px;
+}
+
+.tc-profile-stats {
+  font-size: 13px;
+  color: #aaa;
+}

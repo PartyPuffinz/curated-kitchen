@@ -165,21 +165,22 @@ for (const key of keys) {
               </button>
               {menuOpen && (
                 <div className="account-dropdown">
-                  <Link to="#" className="dropdown-item">My Profile</Link>
-                  <Link to="#" className="dropdown-item">My Saved Recipes</Link>
+                  <Link to="/profile" className="dropdown-item">My Profile</Link>
+                  <Link to="/saved-recipes" className="dropdown-item">My Saved Recipes</Link>
                   <Link to="/upload" className="dropdown-item">Upload a Recipe</Link>
+                  <Link to="/my-recipes" className="dropdown-item">My Uploaded Recipes</Link>
                   {(profile?.account_type === 'subscriber' ||
                     profile?.is_trusted_chef) && (
-                    <Link to="#" className="dropdown-item">My Equipment</Link>
+                    <Link to="/equipment" className="dropdown-item">My Equipment</Link>
                   )}
                   {profile?.account_type === 'subscriber' && (
                     <Link to="#" className="dropdown-item">
                     Personalized Spoon-Based Scoring</Link>
                   )}
                   {profile?.is_trusted_chef && (
-                    <Link to="#" className="dropdown-item">
-                    My Trusted Chef Page</Link>
-                  )}
+  <Link to={`/chef/${profile.username}`} className="dropdown-item">
+  My Trusted Chef Page</Link>
+)}
                   <button
                     className="dropdown-item signout"
                     onClick={handleSignOut}

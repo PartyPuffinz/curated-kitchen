@@ -35,6 +35,7 @@ function Home() {
         <p>Filter by diet, exclude ingredients, and find recipes
         that work for your energy level today.</p>
         <Link to="/browse" className="view-btn">Browse Recipes</Link>
+<Link to="/nowz-foodz" className="view-btn">Nowz Foodz</Link>
       </section>
 
       <section className="category-section">

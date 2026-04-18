@@ -1,0 +1,225 @@
+.nowz-layout {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 16px 60px 16px;
+  font-family: 'IBM Plex Serif', Georgia, serif;
+}
+
+.nowz-header {
+  text-align: center;
+  padding: 40px 0 24px 0;
+  border-bottom: 2px solid #f0e6eb;
+  margin-bottom: 20px;
+}
+
+.nowz-header h2 {
+  font-size: 32px;
+  color: #7b1f4a;
+  margin-bottom: 10px;
+}
+
+.nowz-header p {
+  font-size: 15px;
+  color: #666;
+  line-height: 1.7;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.nowz-disclaimer {
+  background-color: #fdf0ef;
+  border: 1px solid #f5c6c6;
+  border-radius: 8px;
+  padding: 10px 16px;
+  font-size: 12px;
+  color: #c0392b;
+  margin-bottom: 24px;
+  line-height: 1.6;
+}
+
+.nowz-content {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 24px;
+  align-items: start;
+}
+
+.nowz-filters {
+  background-color: white;
+  border-radius: 12px;
+  padding: 20px;
+  position: sticky;
+  top: 16px;
+}
+
+.nowz-filters h3 {
+  font-size: 18px;
+  color: #7b1f4a;
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid #f0e6eb;
+}
+
+.nowz-filter-group {
+  margin-bottom: 20px;
+}
+
+.nowz-filter-group h4 {
+  font-size: 13px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.nowz-radio,
+.nowz-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: #444;
+  padding: 4px 0;
+  cursor: pointer;
+}
+
+.nowz-search {
+  width: 100%;
+  padding: 8px 10px;
+  font-size: 13px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-family: Georgia, serif;
+  color: #333;
+  box-sizing: border-box;
+}
+
+.nowz-search:focus {
+  outline: none;
+  border-color: #7b1f4a;
+}
+
+.nowz-count {
+  font-size: 13px;
+  color: #888;
+  margin-bottom: 16px;
+}
+
+.nowz-empty {
+  text-align: center;
+  padding: 60px 16px;
+  background-color: white;
+  border-radius: 12px;
+  color: #888;
+}
+
+.nowz-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+.nowz-card {
+  background-color: white;
+  border-radius: 12px;
+  padding: 20px;
+  border: 1px solid #f0e6eb;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.nowz-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.nowz-name {
+  font-size: 16px;
+  color: #333;
+  margin: 0;
+}
+
+.nowz-brand {
+  font-size: 12px;
+  color: #aaa;
+  margin: 2px 0 0 0;
+}
+
+.nowz-category-tag {
+  font-size: 10px;
+  background-color: #f5e6ed;
+  color: #7b1f4a;
+  padding: 3px 8px;
+  border-radius: 20px;
+  white-space: nowrap;
+  font-weight: bold;
+  flex-shrink: 0;
+}
+
+.nowz-description {
+  font-size: 13px;
+  color: #666;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.nowz-nutrition {
+  display: flex;
+  gap: 12px;
+  background-color: #fdf6f9;
+  border-radius: 8px;
+  padding: 10px;
+}
+
+.nowz-nut-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+}
+
+.nowz-nut-value {
+  font-size: 16px;
+  font-weight: bold;
+  color: #7b1f4a;
+  font-family: 'IBM Plex Serif', Georgia, serif;
+}
+
+.nowz-nut-label {
+  font-size: 10px;
+  color: #aaa;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.nowz-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.nowz-tag {
+  font-size: 10px;
+  background-color: #7b1f4a;
+  color: white;
+  padding: 2px 8px;
+  border-radius: 20px;
+}
+
+.nowz-rating {
+  font-size: 14px;
+  color: #7b1f4a;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.nowz-rating-count {
+  font-size: 11px;
+  color: #aaa;
+  margin-left: 4px;
+}

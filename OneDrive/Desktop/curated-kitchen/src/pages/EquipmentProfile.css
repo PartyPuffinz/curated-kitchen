@@ -1,0 +1,98 @@
+.equipment-layout {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 16px 60px 16px;
+  font-family: 'IBM Plex Serif', Georgia, serif;
+}
+
+.equipment-header {
+  text-align: center;
+  padding: 40px 0 32px 0;
+  border-bottom: 2px solid #f0e6eb;
+  margin-bottom: 32px;
+}
+
+.equipment-header h2 {
+  font-size: 28px;
+  color: #7b1f4a;
+  margin-bottom: 10px;
+}
+
+.equipment-header p {
+  font-size: 15px;
+  color: #666;
+  line-height: 1.7;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.equipment-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.equipment-item {
+  background-color: white;
+  border: 2px solid #f0e6eb;
+  border-radius: 12px;
+  padding: 20px 16px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.15s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  font-family: Georgia, serif;
+}
+
+.equipment-item:hover {
+  border-color: #7b1f4a;
+  background-color: #fdf6f9;
+}
+
+.equipment-item.active {
+  border-color: #7b1f4a;
+  background-color: #fdf6f9;
+}
+
+.equipment-icon {
+  font-size: 32px;
+  margin-bottom: 4px;
+}
+
+.equipment-label {
+  font-size: 14px;
+  color: #333;
+  display: block;
+}
+
+.equipment-desc {
+  font-size: 11px;
+  color: #aaa;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.equipment-check {
+  font-size: 12px;
+  font-weight: bold;
+  margin-top: 6px;
+  color: #7b1f4a;
+}
+
+.equipment-item.active .equipment-check {
+  color: #0f6e3a;
+}
+
+.equipment-save {
+  text-align: center;
+}
+
+.equipment-saved {
+  font-size: 14px;
+  color: #0f6e3a;
+  margin-bottom: 12px;
+}

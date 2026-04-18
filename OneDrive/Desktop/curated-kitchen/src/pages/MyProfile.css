@@ -1,0 +1,180 @@
+.my-profile-layout {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 16px 60px 16px;
+}
+
+.my-profile-header {
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+  background-color: white;
+  border-radius: 12px;
+  padding: 32px;
+  margin-bottom: 24px;
+}
+
+.my-profile-avatar img,
+.my-avatar-placeholder {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.my-avatar-placeholder {
+  background-color: #f5e6ed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40px;
+}
+
+.my-profile-info {
+  flex: 1;
+}
+
+.my-profile-name-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+  flex-wrap: wrap;
+}
+
+.my-profile-name-row h2 {
+  font-size: 26px;
+  color: #333;
+  margin: 0;
+}
+
+.my-profile-account-type {
+  font-size: 13px;
+  color: #888;
+  margin-bottom: 4px;
+}
+
+.my-profile-joined {
+  font-size: 13px;
+  color: #aaa;
+}
+
+.my-profile-section {
+  background-color: white;
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 24px;
+}
+
+.my-profile-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.my-profile-section-header h3 {
+  font-size: 18px;
+  color: #7b1f4a;
+  margin: 0;
+}
+
+.edit-btn {
+  background: none;
+  border: 1px solid #7b1f4a;
+  color: #7b1f4a;
+  border-radius: 8px;
+  padding: 6px 14px;
+  font-size: 13px;
+  cursor: pointer;
+  font-family: Georgia, serif;
+}
+
+.edit-btn:hover {
+  background-color: #fdf6f9;
+}
+
+.bio-textarea {
+  width: 100%;
+  padding: 10px 12px;
+  font-size: 14px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-family: Georgia, serif;
+  color: #333;
+  resize: vertical;
+  box-sizing: border-box;
+}
+
+.bio-textarea:focus {
+  outline: none;
+  border-color: #7b1f4a;
+}
+
+.bio-char-count {
+  font-size: 11px;
+  color: #aaa;
+  text-align: right;
+  margin-top: 4px;
+  margin-bottom: 10px;
+}
+
+.bio-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.bio-display {
+  font-size: 15px;
+  color: #555;
+  line-height: 1.7;
+}
+
+.bio-success {
+  font-size: 13px;
+  color: #0f6e3a;
+  margin-top: 8px;
+}
+
+.my-profile-links {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.my-profile-link-card {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  background-color: white;
+  border-radius: 12px;
+  padding: 20px 24px;
+  text-decoration: none;
+  border: 1px solid #f0e6eb;
+  transition: border-color 0.15s;
+}
+
+.my-profile-link-card:hover {
+  border-color: #7b1f4a;
+  background-color: #fdf6f9;
+}
+
+.my-profile-link-card span {
+  font-size: 28px;
+  flex-shrink: 0;
+}
+
+.my-profile-link-card strong {
+  display: block;
+  font-size: 15px;
+  color: #333;
+  margin-bottom: 4px;
+}
+
+.my-profile-link-card p {
+  font-size: 13px;
+  color: #888;
+  margin: 0;
+}
