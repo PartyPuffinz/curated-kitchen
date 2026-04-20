@@ -83,3 +83,17 @@
 .faq-footer a:hover {
   text-decoration: underline;
 }
+
+.diet-type-tag {
+  display: inline-block;
+  font-size: 10px;
+  background-color: #f5e6ed;
+  color: #7b1f4a;
+  padding: 2px 8px;
+  border-radius: 20px;
+  margin-left: 10px;
+  font-weight: normal;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  vertical-align: middle;
+}

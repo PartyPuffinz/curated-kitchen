@@ -5,10 +5,11 @@ import './UploadRecipe.css'
 import CustomSelect from '../components/CustomSelect'
 
 const dietOptions = [
-  "Keto", "Paleo", "Halal", "Kosher", "Gluten-free", "Vegan",
-  "Vegetarian", "Low-carb", "Dairy-free", "Nut-free",
-  "Diabetic-friendly", "AIP", "Whole30", "Mediterranean",
-  "DASH", "Low-sodium"
+  "Keto", "Paleo", "Mediterranean", "Vegan", "Vegetarian",
+  "Halal", "Kosher", "Low-carb", "Low-sodium", "DASH",
+  "Whole30", "AIP", "Gluten-free", "Dairy-free", "Egg-free",
+  "Nut-free", "Peanut-free", "Soy-free", "Shellfish-free",
+  "Fish-free", "Sesame-free", "Chocolate-free"
 ]
 
 const cuisineOptions = [
@@ -305,7 +306,11 @@ function formatIngredient(ingredient) {
         result += ' (' + extractedPrep.join(', ') + ')'
       }
       if (existingParens.length > 0) {
-        result += ' ' + existingParens.map(p => p.toLowerCase()).join(' ')
+        result += ' ' + existingParens.map(p => {
+          const lower = p.toLowerCase()
+          if (!lower.endsWith(')')) return lower + ')'
+          return lower
+        }).join(' ')
       }
       return formatTemperature(result.trim())
     }
@@ -384,10 +389,17 @@ function UploadRecipe() {
   }
 
   function handleIngredientBlur(index) {
-    if (!ingredients[index].trim() && ingredients.length > 1) {
-      setIngredients(ingredients.filter((_, i) => i !== index))
-    }
-  }
+  setTimeout(() => {
+    setIngredients(prev => {
+      if (prev.length <= 1) return prev
+      const current = prev[index]
+      if (current !== undefined && current.trim() === '') {
+        return prev.filter((_, i) => i !== index)
+      }
+      return prev
+    })
+  }, 300)
+}
 
   function handleIngredientKeyDown(index, e) {
     if (e.key === 'Enter') {
@@ -403,8 +415,10 @@ function UploadRecipe() {
   }
 
   function addIngredient() {
-    setIngredients([...ingredients, ''])
-  }
+  const last = ingredients[ingredients.length - 1]
+  if (!last.trim()) return
+  setIngredients([...ingredients, ''])
+}
 
   function removeIngredient(index) {
     setIngredients(ingredients.filter((_, i) => i !== index))
@@ -430,19 +444,23 @@ function UploadRecipe() {
   }
 
   function handleStepBlur(i) {
-    setTimeout(() => {
-      setSteps(prev => {
-        if (!prev[i]?.trim() && prev.length > 1) {
-          return prev.filter((_, idx) => idx !== i)
-        }
-        return prev
-      })
-    }, 100)
-  }
+  setTimeout(() => {
+    setSteps(prev => {
+      if (prev.length <= 1) return prev
+      const current = prev[i]
+      if (current !== undefined && current.trim() === '') {
+        return prev.filter((_, idx) => idx !== i)
+      }
+      return prev
+    })
+  }, 300)
+}
 
   function addStep() {
-    setSteps([...steps, ''])
-  }
+  const last = steps[steps.length - 1]
+  if (!last.trim()) return
+  setSteps([...steps, ''])
+}
 
   function removeStep(index) {
     setSteps(steps.filter((_, i) => i !== index))
@@ -638,25 +656,31 @@ for (const key of keys) {
           )}
 
           {suggestedTags.length > 0 && (
-            <div className="allergen-suggested">
-              <h3>✓ Suggested dietary tags</h3>
-              <p>Based on your ingredients, your recipe may
-              qualify for these tags. Click to add any that apply:</p>
-              <div className="tag-grid" style={{marginTop: '10px'}}>
-                {suggestedTags.map(tag => (
-                  <button
-                    key={tag}
-                    type="button"
-                    className={`tag-toggle ${selectedTags.includes(tag) ? 'active' : ''}`}
-                    onClick={() => {
-                      handleTagToggle(tag)
-                      setSuggestedTags(prev => prev.filter(t => t !== tag))
-                    }}
-                  >{tag} +</button>
-                ))}
-              </div>
-            </div>
-          )}
+  <div className="allergen-suggested">
+    <h3>✓ Suggested dietary tags</h3>
+    <p>Based on your ingredients, your recipe may
+    qualify for these tags. Click to add any that apply:</p>
+    <div className="tag-grid" style={{marginTop: '10px'}}>
+      {suggestedTags.map(tag => (
+        <button
+          key={tag}
+          type="button"
+          className={`tag-toggle ${selectedTags.includes(tag) ? 'active' : ''}`}
+          onClick={() => {
+            handleTagToggle(tag)
+            setSuggestedTags(prev => prev.filter(t => t !== tag))
+          }}
+        >{tag} +</button>
+      ))}
+    </div>
+    <p style={{fontSize: '12px', color: '#888', marginTop: '12px',
+    fontStyle: 'italic'}}>
+      If any tags are missing or incorrect, you can manually
+      add or remove them on the previous page using the
+      Dietary Tags selector.
+    </p>
+  </div>
+)}
 
           <p className="allergen-note">
             ⚠️ Allergen detection is not perfect. Please double-check

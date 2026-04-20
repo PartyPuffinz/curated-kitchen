@@ -8,10 +8,11 @@ import './Browse.css'
 
 
 const dietOptions = [
-  "Keto", "Paleo", "Halal", "Kosher", "Gluten-free", "Vegan",
-  "Vegetarian", "Low-carb", "Dairy-free", "Nut-free",
-  "Diabetic-friendly", "AIP", "Whole30", "Mediterranean",
-  "DASH", "Low-sodium"
+  "Keto", "Paleo", "Mediterranean", "Vegan", "Vegetarian",
+  "Halal", "Kosher", "Low-carb", "Low-sodium", "DASH",
+  "Whole30", "AIP", "Gluten-free", "Dairy-free", "Egg-free",
+  "Nut-free", "Peanut-free", "Soy-free", "Shellfish-free",
+  "Fish-free", "Sesame-free", "Chocolate-free"
 ]
 
 const cuisineOptions = [
@@ -79,7 +80,8 @@ function Browse() {
   const [excludeInput, setExcludeInput] = useState('')
   const [suggestions, setSuggestions] = useState([])
   const [source, setSource] = useState('all')
-
+const [showRemixesOnly, setShowRemixesOnly] = useState(false)
+const [hideRemixes, setHideRemixes] = useState(false)
   const [sortBy, setSortBy] = useState('newest')
 const [perPage, setPerPage] = useState(25)
 const suggestionsRef = useRef(null)
@@ -189,8 +191,10 @@ const handleExcludeInput = (val) => {
 })) return false
 
     if (source === 'wellSeasoned' && !recipe.is_well_seasoned) return false
-    if (source === 'trustedChef' && !recipe.is_trusted_chef) return false
-    return true
+if (source === 'trustedChef' && !recipe.is_trusted_chef) return false
+if (showRemixesOnly && !recipe.is_remix) return false
+if (hideRemixes && recipe.is_remix) return false
+return true
   })
   .sort((a, b) => {
     if (sortBy === 'highest') return b.rating - a.rating
@@ -241,6 +245,30 @@ const handleExcludeInput = (val) => {
             ))}
           </div>
         </div>
+
+<div className="filter-group">
+  <h3>Recipe Type</h3>
+  <label>
+    <input
+      type="checkbox"
+      checked={showRemixesOnly}
+      onChange={e => {
+        setShowRemixesOnly(e.target.checked)
+        if (e.target.checked) setHideRemixes(false)
+      }}
+    /> Remixes only
+  </label>
+  <label>
+    <input
+      type="checkbox"
+      checked={hideRemixes}
+      onChange={e => {
+        setHideRemixes(e.target.checked)
+        if (e.target.checked) setShowRemixesOnly(false)
+      }}
+    /> Hide remixes
+  </label>
+</div>
 
         <div className="filter-group">
           <h3>Recipe Source</h3>
@@ -332,11 +360,13 @@ onBlur={() => setTimeout(() => setSuggestions([]), 150)}
   onClick={() => {
     setSelectedDiets([])
     setSelectedCuisines([])
-    setSelectedSource('all')
-    setSelectedSpoon('')
-    setSelectedRating('')
+    setSource('all')
+    setMaxSpoon(10)
+    setMinRating(0)
     setExcludedIngredients([])
-    setSearchQuery('')
+    setSearchTerm('')
+    setShowRemixesOnly(false)
+    setHideRemixes(false)
   }}
 >Reset Filters</button>
 

@@ -12,11 +12,11 @@ const categories = [
 ]
 
 const dietFilters = [
-  'Keto', 'Low-carb', 'Gluten-free', 'Dairy-free', 'Vegan',
-  'Vegetarian', 'Nut-free', 'Paleo', 'Diabetic-friendly',
-  'Halal', 'Kosher', 'Whole30', 'AIP', 'Mediterranean',
-  'DASH', 'Low-sodium', 'Egg-free', 'Soy-free',
-  'Shellfish-free', 'Fish-free', 'Peanut-free', 'Sesame-free'
+  "Keto", "Paleo", "Mediterranean", "Vegan", "Vegetarian",
+  "Halal", "Kosher", "Low-carb", "Low-sodium", "DASH",
+  "Whole30", "AIP", "Gluten-free", "Dairy-free", "Egg-free",
+  "Nut-free", "Peanut-free", "Soy-free", "Shellfish-free",
+  "Fish-free", "Sesame-free", "Chocolate-free"
 ]
 
 function NowzFoodz() {

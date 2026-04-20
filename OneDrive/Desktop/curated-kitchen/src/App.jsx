@@ -23,6 +23,9 @@ import PrivacyPolicy from './pages/PrivacyPolicy'
 import AbusePolicy from './pages/AbusePolicy'
 import AdminNowzUpload from './pages/AdminNowzUpload'
 import UploadSuccess from './pages/UploadSuccess'
+import RemixRecipe from './pages/RemixRecipe'
+import RecipeCardMode from './pages/RecipeCardMode'
+import Diets from './pages/Diets'
 import UploadRecipe from './pages/UploadRecipe'
 
 function App() {
@@ -51,6 +54,9 @@ function App() {
         <Route path="/abuse-policy" element={<AbusePolicy />} />
         <Route path="/admin/nowz" element={<AdminNowzUpload />} />
         <Route path="/upload-success" element={<UploadSuccess />} />
+        <Route path="/remix" element={<RemixRecipe />} />
+        <Route path="/recipes/:slug/cards" element={<RecipeCardMode />} />
+        <Route path="/diets" element={<Diets />} />
         <Route path="/upload" element={<UploadRecipe />} />
       </Routes>
       <Footer />

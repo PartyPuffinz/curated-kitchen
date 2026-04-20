@@ -288,3 +288,46 @@
   text-align: center;
   margin-top: 20px;
 }
+
+.admin-halal-note {
+  background-color: #fdf6f9;
+  border: 1px solid #f0e6eb;
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 13px;
+  color: #555;
+  line-height: 1.6;
+  margin-bottom: 12px;
+}
+
+.admin-possible-tags {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px dashed #f0e6eb;
+}
+
+.admin-possible-title {
+  font-size: 12px;
+  color: #888;
+  font-style: italic;
+  margin-bottom: 10px;
+}
+
+.admin-tag-btn.possible {
+  background-color: white;
+  border: 1px dashed #d4a0b8;
+  color: #7b1f4a;
+  opacity: 0.8;
+}
+
+.admin-tag-btn.possible:hover {
+  opacity: 1;
+  background-color: #f5e6ed;
+}
+
+.admin-tag-btn.possible.active {
+  background-color: #7b1f4a;
+  color: white;
+  border-style: solid;
+  opacity: 1;
+}

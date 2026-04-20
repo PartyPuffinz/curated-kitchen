@@ -11,11 +11,11 @@ const categories = [
 ]
 
 const dietOptions = [
-  'Keto', 'Low-carb', 'Gluten-free', 'Dairy-free', 'Vegan',
-  'Vegetarian', 'Nut-free', 'Paleo', 'Diabetic-friendly',
-  'Halal', 'Kosher', 'Whole30', 'AIP', 'Mediterranean',
-  'DASH', 'Low-sodium', 'Egg-free', 'Soy-free',
-  'Shellfish-free', 'Fish-free', 'Peanut-free', 'Sesame-free'
+  "Keto", "Paleo", "Mediterranean", "Vegan", "Vegetarian",
+  "Halal", "Kosher", "Low-carb", "Low-sodium", "DASH",
+  "Whole30", "AIP", "Gluten-free", "Dairy-free", "Egg-free",
+  "Nut-free", "Peanut-free", "Soy-free", "Shellfish-free",
+  "Fish-free", "Sesame-free", "Chocolate-free"
 ]
 
 function blankItem() {
@@ -25,35 +25,95 @@ function blankItem() {
     imageUrl: '', imageFile: null, imagePreview: null,
     calories: '', protein: '', carbs: '', fat: '',
     fiber: '', sugar: '', sodium: '', ingredients: '',
-    selectedTags: [], error: '', saved: false, saving: false
+    selectedTags: [], possibleTags: [],
+    error: '', saved: false, saving: false
   }
 }
 
 function autoDetectTags(ingredientText) {
   const text = ingredientText.toLowerCase()
-  const detected = []
+  const confirmed = []
+  const possible = []
+
+  // CONFIRMED auto-detectable by absence:
   if (!/sugar|honey|maple|corn syrup|maltose|dextrose|fructose/.test(text) &&
     !/flour|bread|pasta|rice|oat|potato|corn/.test(text))
-    detected.push('Keto', 'Low-carb')
-  if (!/wheat|gluten|barley|rye|malt|spelt|farro/.test(text))
-    detected.push('Gluten-free')
-  if (!/milk|butter|cream|cheese|yogurt|whey|casein|lactose/.test(text))
-    detected.push('Dairy-free')
-  if (!/chicken|beef|pork|lamb|turkey|fish|shrimp|bacon|gelatin|honey|whey/.test(text))
-    detected.push('Vegan')
-  if (!/chicken|beef|pork|lamb|turkey|bacon|ham|sausage|fish|shrimp/.test(text))
-    detected.push('Vegetarian')
-  if (!/almond|walnut|pecan|cashew|pistachio|hazelnut|macadamia|pine nut/.test(text))
-    detected.push('Nut-free')
-  if (!/peanut|groundnut/.test(text)) detected.push('Peanut-free')
-  if (!/egg|mayonnaise|albumin/.test(text)) detected.push('Egg-free')
-  if (!/soy|tofu|edamame|miso|tempeh/.test(text)) detected.push('Soy-free')
-  if (!/sesame|tahini/.test(text)) detected.push('Sesame-free')
-  if (!/shrimp|crab|lobster|prawn|scallop|clam|oyster|mussel/.test(text))
-    detected.push('Shellfish-free')
-  if (!/salmon|tuna|cod|tilapia|halibut|anchovy|sardine|fish sauce/.test(text))
-    detected.push('Fish-free')
-  return detected
+    confirmed.push('Keto', 'Low-carb')
+
+  if (!/wheat|gluten|barley|rye|malt|spelt|farro|breadcrumb|soy sauce|couscous/.test(text))
+    confirmed.push('Gluten-free')
+
+  if (!/milk|butter|cream|cheese|yogurt|whey|casein|lactose|ghee|kefir/.test(text))
+    confirmed.push('Dairy-free')
+
+  if (!/egg|eggs|mayonnaise|meringue|albumin/.test(text))
+    confirmed.push('Egg-free')
+
+  if (!/soy|soya|tofu|edamame|miso|tempeh|tamari/.test(text))
+    confirmed.push('Soy-free')
+
+  if (!/almond|walnut|pecan|cashew|pistachio|hazelnut|macadamia|pine nut|brazil nut|chestnut/.test(text))
+    confirmed.push('Nut-free')
+
+  if (!/peanut|groundnut/.test(text))
+    confirmed.push('Peanut-free')
+
+  if (!/sesame|tahini/.test(text))
+    confirmed.push('Sesame-free')
+
+  if (!/shrimp|crab|lobster|prawn|crayfish|scallop|clam|oyster|mussel|squid|octopus/.test(text))
+    confirmed.push('Shellfish-free')
+
+  if (!/salmon|tuna|cod|tilapia|halibut|anchovy|sardine|mahi|bass|trout|catfish|fish sauce|worcestershire/.test(text))
+    confirmed.push('Fish-free')
+
+  if (!/chocolate|cocoa|cacao|nutella/.test(text))
+    confirmed.push('Chocolate-free')
+
+  if (!/chicken|beef|pork|lamb|turkey|fish|shrimp|bacon|gelatin|honey|whey|casein|egg|eggs/.test(text))
+    confirmed.push('Vegan')
+
+  if (!/chicken|beef|pork|lamb|turkey|bacon|ham|sausage|anchovies|gelatin|lard|fish sauce|shrimp|salmon|tuna|cod/.test(text))
+    confirmed.push('Vegetarian')
+
+  // POSSIBLE matches — educated guesses, require verification:
+
+  // Paleo: no grains, no legumes, no refined sugar, no soy
+  // (dairy in moderation is acceptable)
+  if (!/wheat|flour|bread|pasta|rice|oat|corn|barley|rye|spelt|farro|couscous/.test(text) &&
+    !/beans|lentils|chickpea|peanut|soy|tofu|edamame|legume/.test(text) &&
+    !/refined sugar|white sugar|granulated sugar|corn syrup/.test(text))
+    possible.push('Paleo')
+
+  // Whole30: no grains, no legumes, no dairy, no sugar, no soy, no alcohol
+  if (!/wheat|flour|bread|pasta|rice|oat|corn|barley|rye/.test(text) &&
+    !/beans|lentils|chickpea|peanut|soy|tofu|edamame/.test(text) &&
+    !/milk|cheese|yogurt|cream|butter|whey|casein/.test(text) &&
+    !/sugar|honey|maple|agave|stevia|splenda/.test(text) &&
+    !/wine|beer|alcohol|bourbon|rum|vodka/.test(text))
+    possible.push('Whole30')
+
+  // AIP: Paleo rules + no eggs, no nightshades, no nuts, no seeds
+  if (!/wheat|flour|bread|pasta|rice|oat|corn|barley|rye/.test(text) &&
+    !/beans|lentils|chickpea|peanut|soy|tofu|edamame/.test(text) &&
+    !/egg|eggs|mayonnaise/.test(text) &&
+    !/tomato|pepper|eggplant|potato|paprika|cayenne|chili/.test(text) &&
+    !/almond|walnut|pecan|cashew|pistachio|hazelnut|macadamia|pine nut/.test(text) &&
+    !/sesame|sunflower|pumpkin seed|chia|flax/.test(text))
+    possible.push('AIP')
+
+  // Mediterranean: olive oil present, or fish/seafood present, or heavy vegetables
+  if (/olive oil/.test(text) ||
+    (/salmon|tuna|cod|tilapia|halibut|sardine|anchovy|shrimp|clam|mussel/.test(text) &&
+    !/deep fry|fried/.test(text)))
+    possible.push('Mediterranean')
+
+  // DASH: no high-sodium ingredients, no processed meats
+  if (!/salt|sodium|soy sauce|fish sauce|worcestershire|anchovies/.test(text) &&
+    !/bacon|ham|sausage|hot dog|deli meat|pepperoni|salami/.test(text))
+    possible.push('DASH')
+
+  return { confirmed, possible }
 }
 
 function ItemForm({ item, index, onChange, onRemove, onLookup, onSave }) {
@@ -251,20 +311,48 @@ function ItemForm({ item, index, onChange, onRemove, onLookup, onSave }) {
           </div>
 
           <div className="admin-group">
-            <label>Dietary Tags (auto-detected + manual)</label>
-            <p className="admin-hint">Tags auto-detected from
-            ingredients. Toggle to add or remove.</p>
-            <div className="admin-tags">
-              {dietOptions.map(tag => (
-                <button
-                  key={tag}
-                  type="button"
-                  className={`admin-tag-btn ${item.selectedTags.includes(tag) ? 'active' : ''}`}
-                  onClick={() => toggleTag(tag)}
-                >{tag}</button>
-              ))}
-            </div>
-          </div>
+  <label>Dietary Tags (auto-detected + manual)</label>
+  <p className="admin-hint">
+    Tags in green were auto-detected from the ingredients list.
+    Toggle any tag to add or remove it manually.
+  </p>
+
+  <div className="admin-halal-note">
+    ⚠️ If this recipe or product should be considered
+    <strong> Halal</strong> or <strong>Kosher</strong>, please
+    note any necessary ingredient substitutions or preparation
+    requirements in the description field above.
+  </div>
+
+  <div className="admin-tags">
+    {dietOptions.map(tag => (
+      <button
+        key={tag}
+        type="button"
+        className={`admin-tag-btn ${item.selectedTags.includes(tag) ? 'active' : ''}`}
+        onClick={() => toggleTag(tag)}
+      >{tag}</button>
+    ))}
+  </div>
+
+  {item.possibleTags?.length > 0 && (
+    <div className="admin-possible-tags">
+      <p className="admin-possible-title">
+        🔍 Possible matches — please verify before selecting:
+      </p>
+      <div className="admin-tags">
+        {item.possibleTags.map(tag => (
+          <button
+            key={tag}
+            type="button"
+            className={`admin-tag-btn possible ${item.selectedTags.includes(tag) ? 'active' : ''}`}
+            onClick={() => toggleTag(tag)}
+          >{tag} ?</button>
+        ))}
+      </div>
+    </div>
+  )}
+</div>
 
           {item.error && <p className="auth-error">{item.error}</p>}
           {item.saved && (
@@ -316,24 +404,26 @@ function AdminNowzUpload() {
       const p = data.product
       const n = p.nutriments || {}
       const ingredientText = p.ingredients_text || ''
-      const detected = autoDetectTags(ingredientText)
-      setItems(prev => prev.map((it, i) => i === index ? {
-        ...it,
-        looking: false,
-        name: p.product_name || '',
-        brand: p.brands || '',
-        imageUrl: p.image_url || '',
-        imagePreview: p.image_url || null,
-        ingredients: ingredientText,
-        calories: Math.round(n['energy-kcal_100g'] || 0).toString(),
-        protein: (n.proteins_100g || 0).toFixed(1),
-        carbs: (n.carbohydrates_100g || 0).toFixed(1),
-        fat: (n.fat_100g || 0).toFixed(1),
-        fiber: (n.fiber_100g || 0).toFixed(1),
-        sugar: (n.sugars_100g || 0).toFixed(1),
-        sodium: Math.round((n.sodium_100g || 0) * 1000).toString(),
-        selectedTags: [...new Set([...it.selectedTags, ...detected])]
-      } : it))
+      const { confirmed, possible } = autoDetectTags(ingredientText)
+setItems(prev => prev.map((it, i) => i === index ? {
+  ...it,
+  looking: false,
+  name: p.product_name || '',
+  brand: p.brands || '',
+  imageUrl: p.image_url || '',
+  imagePreview: p.image_url || null,
+  ingredients: ingredientText,
+  calories: Math.round(n['energy-kcal_100g'] || 0).toString(),
+  protein: (n.proteins_100g || 0).toFixed(1),
+  carbs: (n.carbohydrates_100g || 0).toFixed(1),
+  fat: (n.fat_100g || 0).toFixed(1),
+  fiber: (n.fiber_100g || 0).toFixed(1),
+  sugar: (n.sugars_100g || 0).toFixed(1),
+  sodium: Math.round((n.sodium_100g || 0) * 1000).toString(),
+  selectedTags: [...new Set([...it.selectedTags, ...confirmed])],
+  possibleTags: possible
+} : it))
+
     } catch(e) {
       updateItem(index, 'error',
         'Failed to fetch product. Please fill in manually.')

@@ -6,6 +6,7 @@ function Footer() {
     <footer className="footer">
       <div className="footer-links">
         <Link to="/faq">FAQ</Link>
+        <Link to="/diets">Diets & Allergens</Link>
         <Link to="/membership">Membership</Link>
         <Link to="/trusted-chef-info">Trusted Chef</Link>
         <Link to="/faq#spoon-theory">Spoon Theory</Link>

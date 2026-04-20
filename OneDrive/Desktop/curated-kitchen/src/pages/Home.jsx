@@ -156,6 +156,8 @@ function Home() {
         </div>
       </section>
 
+
+
       {(nowzTopRated.length > 0 || nowzNewest.length > 0) && (
         <section className="recipe-section">
           <div className="section-header-row">
