@@ -26,6 +26,7 @@ import UploadSuccess from './pages/UploadSuccess'
 import RemixRecipe from './pages/RemixRecipe'
 import RecipeCardMode from './pages/RecipeCardMode'
 import Diets from './pages/Diets'
+import PersonalizedSpoonScore from './pages/PersonalizedSpoonScore'
 import UploadRecipe from './pages/UploadRecipe'
 
 function App() {
@@ -57,6 +58,7 @@ function App() {
         <Route path="/remix" element={<RemixRecipe />} />
         <Route path="/recipes/:slug/cards" element={<RecipeCardMode />} />
         <Route path="/diets" element={<Diets />} />
+        <Route path="/personalized-spoon-score" element={<PersonalizedSpoonScore />} />
         <Route path="/upload" element={<UploadRecipe />} />
       </Routes>
       <Footer />

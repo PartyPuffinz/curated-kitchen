@@ -59,6 +59,7 @@ function RecipePage() {
 const [isSubscriber, setIsSubscriber] = useState(false)
 const [userEquipment, setUserEquipment] = useState(null)
 const [isTrustedChef, setIsTrustedChef] = useState(false)
+const [personalizedSpoon, setPersonalizedSpoon] = useState(null)
   const reportMenuRef = useRef(null)
 
   useEffect(() => {
@@ -158,6 +159,12 @@ useEffect(() => {
                 if (p?.is_trusted_chef) setIsTrustedChef(true)
                 if (p?.account_type === 'subscriber' || p?.is_trusted_chef) {
                   setUserEquipment(p?.equipment || [])
+                }
+                if (p?.account_type === 'subscriber' && p?.spoon_profile) {
+                  import('../utils/personalizedSpoon.js').then(({ calculatePersonalizedSpoonScore }) => {
+                    const score = calculatePersonalizedSpoonScore({}, p.spoon_profile)
+                    setPersonalizedSpoon(score)
+                  })
                 }
               })
             break
@@ -589,6 +596,21 @@ function playChime() {
               </div>
             )}
 
+
+            {personalizedSpoon !== null && (
+              <div className="personalized-spoon-notice">
+                <p className="personalized-spoon-title">
+                  🥄 Your Personalized Spoon Score
+                </p>
+                <p className="personalized-spoon-score">
+                  {personalizedSpoon}/10 spoons
+                </p>
+                <p className="personalized-spoon-note">
+                  Based on your personal energy profile. The standard score is {recipe.spoon_score}/10.
+                </p>
+              </div>
+            )}
+            
             <div className="meta-row">
               <span>🥄 {recipe.spoon_score}/10 spoons</span>
               <span>

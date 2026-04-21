@@ -174,9 +174,9 @@ for (const key of keys) {
                     <Link to="/equipment" className="dropdown-item">My Equipment</Link>
                   )}
                   {profile?.account_type === 'subscriber' && (
-                    <Link to="#" className="dropdown-item">
-                    Personalized Spoon-Based Scoring</Link>
-                  )}
+  <Link to="/personalized-spoon-score" className="dropdown-item">
+  Personalized Spoon Score</Link>
+)}
                   {profile?.is_trusted_chef && (
   <Link to={`/chef/${profile.username}`} className="dropdown-item">
   My Trusted Chef Page</Link>

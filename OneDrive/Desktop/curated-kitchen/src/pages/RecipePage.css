@@ -932,3 +932,37 @@
   color: #0f6e3a;
   font-weight: bold;
 }
+
+.personalized-spoon-notice {
+  background-color: #e6f5ee;
+  border: 1px solid #b8e0cc;
+  border-left: 4px solid #0f6e3a;
+  border-radius: 0 8px 8px 0;
+  padding: 12px 16px;
+  margin-bottom: 8px;
+}
+
+.personalized-spoon-title {
+  font-size: 13px;
+  font-weight: bold;
+  color: #0f6e3a;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 4px;
+  font-family: 'IBM Plex Serif', Georgia, serif;
+}
+
+.personalized-spoon-score {
+  font-size: 22px;
+  font-weight: bold;
+  color: #0f6e3a;
+  font-family: 'IBM Plex Serif', Georgia, serif;
+  margin-bottom: 4px;
+}
+
+.personalized-spoon-note {
+  font-size: 12px;
+  color: #52b788;
+  font-style: italic;
+  font-family: 'IBM Plex Serif', Georgia, serif;
+}
